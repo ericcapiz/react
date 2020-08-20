@@ -16,7 +16,7 @@ const Login = (props) => {
     const formSchema = yup.object().shape({
 
         username: yup.string().required("Name is required"),
-        password: yup.string().min(6, "Passwords must be at least 6 characters long").required("Password is required")
+        password: yup.string().required("Password is required")
 
     })
 
