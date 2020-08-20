@@ -85,12 +85,15 @@ const Login = (props) => {
 
     return (
 
+        <div>
+
         <Form inline onSubmit={submitForm}>
             {serverError ? <p>{serverError}</p> : null}
 
         {/* Username Field */}
         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Label htmlFor="username" className="mr-sm-2">Username</Label>
+          <Label htmlFor="username" className="mr-sm-2">
+              Username
           <Input 
           type="text" 
           name="username" 
@@ -100,11 +103,13 @@ const Login = (props) => {
           onChange={handleChanges} >
           </Input>
         {/* {errors.username.length > 0 ? <p>{errors.username}</p> : null} */}
+        </Label>
         </FormGroup>
        
           {/* Password Field */}
         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Label htmlFor="password" className="mr-sm-2">Password</Label>
+          <Label htmlFor="password" className="mr-sm-2">
+              Password 
           <Input 
           type="password" 
           name="password" 
@@ -114,15 +119,18 @@ const Login = (props) => {
           onChange={handleChanges} >
           </Input>
         {/* {errors.password.length > 0 ? <p>{errors.password}</p> : null} */}
+        </Label>
         </FormGroup>
        
         <Button type="submit" disabled = {button} >Submit</Button>
-
-          {/* If user hasn't registered, they would click the Register button instead and go to Eric's Register page*/}
-        <h3>Haven't registered?</h3>
-        <Button type="submit" >Register</Button>
       
         </Form>
+
+             {/* If user hasn't registered, they would click the Register button instead and go to Eric's Register page*/}
+             <h3>Haven't registered?</h3>
+             <Button type="submit" >Register</Button>
+
+        </div>
 
     );
     
