@@ -17,6 +17,11 @@ const Login = (props) => {
     history.push("/register");
   };
 
+  const goStudentDashboard = () => {
+    console.log("Going to student dashboard");
+    history.push("/studentdashboard");
+  };
+
   //Set the state for user
   const [user, setUser] = useState({ username: "", password: "" });
 
@@ -125,7 +130,7 @@ const Login = (props) => {
           </Label>
         </FormGroup>
 
-        <Button type="submit" disabled={button}>
+        <Button type="submit" disabled={button} onClick={goStudentDashboard}>
           Submit
         </Button>
       </Form>
