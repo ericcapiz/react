@@ -2,14 +2,27 @@ import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { useHistory, Route } from 'react-router-dom';
 
 const Login = (props) => {
 
+    const history = useHistory();
+
+    const goHome = () => {
+        console.log("Going home")
+        history.push('/');
+      }
+
+    const goRegister = () => {
+        console.log("Going to register")
+        history.push('/register');
+      }
+
     //Set the state for user
-    const [user, setUser] = useState({ Username: "", Password: "" })
+    const [user, setUser] = useState({ username: "", password: "" })
 
     //Set the state for error 
-    const [errors, setErrors] = useState({ Username: "", Password: "" })
+    const [errors, setErrors] = useState({ username: "", password: "" })
 
     //Set the state for server error
     const [serverError, setServerError] = useState("")
@@ -102,7 +115,7 @@ const Login = (props) => {
           value={user.username}
           onChange={handleChanges} >
           </Input>
-        {/* {errors.username.length > 0 ? <p>{errors.username}</p> : null} */}
+        {errors.username.length > 0 ? <p>{errors.username}</p> : null}
         </Label>
         </FormGroup>
        
@@ -118,7 +131,7 @@ const Login = (props) => {
           value={user.password}
           onChange={handleChanges} >
           </Input>
-        {/* {errors.password.length > 0 ? <p>{errors.password}</p> : null} */}
+        {errors.password.length > 0 ? <p>{errors.password}</p> : null}
         </Label>
         </FormGroup>
        
@@ -128,7 +141,11 @@ const Login = (props) => {
 
              {/* If user hasn't registered, they would click the Register button instead and go to Eric's Register page*/}
              <h3>Haven't registered?</h3>
-             <Button type="submit" >Register</Button>
+            
+             <Button type="submit" onClick={goRegister}>Register</Button>
+
+             <Button onClick={goHome}>Home</Button>
+             <Route exact path="/" />
 
         </div>
 
