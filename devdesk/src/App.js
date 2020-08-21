@@ -12,6 +12,9 @@ function App() {
     <Router>
       <div>
         <Switch>
+          <PrivateRoute path="/helper_dashboard" component={HelperDashboard} />
+          <PrivateRoute path="/student_dashboard" component={StudentDashboard} />
+          <Route path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/" />
         </Switch>
