@@ -1,156 +1,146 @@
-import React, { useState, useEffect } from 'react';
-import * as yup from 'yup';
-import axios from 'axios';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import { useHistory, Route } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import * as yup from "yup";
+import axios from "axios";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { useHistory, Route } from "react-router-dom";
 
 const Login = (props) => {
+  const history = useHistory();
 
-    const history = useHistory();
+  const goHome = () => {
+    console.log("Going home");
+    history.push("/");
+  };
 
-    const goHome = () => {
-        console.log("Going home")
-        history.push('/');
-      }
+  const goRegister = () => {
+    console.log("Going to register");
+    history.push("/register");
+  };
 
-    const goRegister = () => {
-        console.log("Going to register")
-        history.push('/register');
-      }
+  //Set the state for user
+  const [user, setUser] = useState({ username: "", password: "" });
 
-    //Set the state for user
-    const [user, setUser] = useState({ username: "", password: "" })
+  //Set the state for error
+  const [errors, setErrors] = useState({ username: "", password: "" });
 
-    //Set the state for error 
-    const [errors, setErrors] = useState({ username: "", password: "" })
+  //Set the state for server error
+  const [serverError, setServerError] = useState("");
 
-    //Set the state for server error
-    const [serverError, setServerError] = useState("")
+  //Set the state for button
+  const [button, setButton] = useState(true);
 
-    //Set the state for button
-    const [button, setButton] = useState(true);
+  //Form schema for login
+  const formSchema = yup.object().shape({
+    username: yup.string().required("Name is required"),
+    password: yup.string().required("Password is required"),
+  });
 
-    //Form schema for login
-    const formSchema = yup.object().shape({
+  //Form validation function for login
+  const validateChange = (e) => {
+    yup
+      .reach(formSchema, e.target.name)
+      .validate(e.target.name ? e.target.value : null)
+      .then((valid) => {
+        setErrors({
+          ...errors,
+          [e.target.name]: "", //Clear any error messages
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrors({
+          ...errors,
+          [e.target.name]: err.errors[0], //Display the error message
+        });
+      });
+  };
 
-        username: yup.string().required("Name is required"),
-        password: yup.string().required("Password is required")
+  //Handle user input changes for login
+  const handleChanges = (e) => {
+    e.persist();
+    console.log("new input here!", e.target.value);
+    const newUser = { ...user, [e.target.name]: e.target.value };
+    validateChange(e);
+    setUser(newUser);
+  };
 
-    })
+  //Submit form function for login
+  const submitForm = (e) => {
+    e.preventDefault();
+    console.log("Form submitted!");
 
-     //Form validation function for login
-     const validateChange = (e) => {
+    axios
+      .post("https://reqres.in/api/users", user) //Temporary API
+      .then((response) => {
+        console.log("POST is successful!", response.data);
+        setServerError(null);
+        setUser({ Username: "", Password: "" }); //Clear the form
+      })
+      .catch((err) => {
+        setServerError("API POST request failed!");
+      });
+  };
 
-        yup
-        .reach(formSchema, e.target.name)
-        .validate(e.target.name ? e.target.value : null)
-        .then(valid => {
-            setErrors({
-                ...errors,
-                [e.target.name]: "" //Clear any error messages
-            })
-            
-        })
-        .catch(err => {
-            console.log(err)
-            setErrors({
-                ...errors,
-                [e.target.name] : err.errors[0] //Display the error message
-            })
-        })
-    }
+  //If everything checks, then button is enabled
+  useEffect(() => {
+    formSchema.isValid(user).then((isValid) => {
+      setButton(!isValid);
+    });
+  }, [user]);
 
-    //Handle user input changes for login
-    const handleChanges = (e) => {
-
-        e.persist()
-        console.log("new input here!", e.target.value)
-        const newUser = { ...user, [e.target.name]: e.target.value }
-        validateChange(e)
-        setUser(newUser)
-      };
-
-      //Submit form function for login
-      const submitForm = (e) => {
-        e.preventDefault(); 
-        console.log("Form submitted!")
-
-        axios
-            .post("https://reqres.in/api/users", user) //Temporary API
-            .then(response => {
-                console.log("POST is successful!", response.data)
-                setServerError(null)
-                setUser({ Username: "", Password: "" }) //Clear the form
-            })
-            .catch(err => {
-                setServerError("API POST request failed!")
-            })
-    
-      };
-
-    //If everything checks, then button is enabled
-    useEffect(() => {
-        formSchema.isValid(user)
-        .then(isValid => {
-            setButton(!isValid)
-        })
-    }, [user])
-
-    return (
-
-        <div>
-
-        <Form inline onSubmit={submitForm}>
-            {serverError ? <p>{serverError}</p> : null}
+  return (
+    <div>
+      <Form inline onSubmit={submitForm}>
+        {serverError ? <p>{serverError}</p> : null}
 
         {/* Username Field */}
         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
           <Label htmlFor="username" className="mr-sm-2">
-              Username
-          <Input 
-          type="text" 
-          name="username" 
-          id="username" 
-          placeholder="Austin Allred" 
-          value={user.username}
-          onChange={handleChanges} >
-          </Input>
-        {errors.username.length > 0 ? <p>{errors.username}</p> : null}
-        </Label>
+            Username
+            <Input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Austin Allred"
+              value={user.username}
+              onChange={handleChanges}
+            ></Input>
+            {errors.username.length > 0 ? <p>{errors.username}</p> : null}
+          </Label>
         </FormGroup>
-       
-          {/* Password Field */}
+
+        {/* Password Field */}
         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
           <Label htmlFor="password" className="mr-sm-2">
-              Password 
-          <Input 
-          type="password" 
-          name="password" 
-          id="password" 
-          placeholder="Don't tell!"
-          value={user.password}
-          onChange={handleChanges} >
-          </Input>
-        {errors.password.length > 0 ? <p>{errors.password}</p> : null}
-        </Label>
+            Password
+            <Input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Don't tell!"
+              value={user.password}
+              onChange={handleChanges}
+            ></Input>
+            {errors.password.length > 0 ? <p>{errors.password}</p> : null}
+          </Label>
         </FormGroup>
-       
-        <Button type="submit" disabled = {button} >Submit</Button>
-      
-        </Form>
 
-             {/* If user hasn't registered, they would click the Register button instead and go to Eric's Register page*/}
-             <h3>Haven't registered?</h3>
-            
-             <Button type="submit" onClick={goRegister}>Register</Button>
+        <Button type="submit" disabled={button}>
+          Submit
+        </Button>
+      </Form>
 
-             <Button onClick={goHome}>Home</Button>
-             <Route exact path="/" />
+      {/* If user hasn't registered, they would click the Register button instead and go to Eric's Register page*/}
+      <h3>Haven't registered?</h3>
 
-        </div>
+      <Button type="submit" onClick={goRegister}>
+        Register
+      </Button>
 
-    );
-    
-}
+      <Button onClick={goHome}>Home</Button>
+      <Route exact path="/" />
+    </div>
+  );
+};
 
 export default Login;
