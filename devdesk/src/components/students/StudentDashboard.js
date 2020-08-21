@@ -1,15 +1,25 @@
 import React from "react";
 import TicketList from "../../components/TicketList";
+import { useHistory, Route } from "react-router-dom";
 
 
 const StudentDashboard = () => {
+
+    const history = useHistory();
+
+    const goNewTicketForm = () => {
+      console.log("Going to new ticket form");
+      history.push("/newticketform");
+    };
+
+    
 
     return (
         <div>
 
         <h1>Hi (User)</h1>
 
-        <button>Create a new ticket</button>
+        <button onClick={goNewTicketForm}>Create a new ticket</button>
         <h3>(Search bar goes here)</h3>
 
         <div>

@@ -6,6 +6,7 @@ import Register from "./components/Register";
 import HelperDashboard from "./components/HelperDashboard";
 import PrivateRoute from "./components/utils/PrivateRoute";
 import StudentDashboard from "./components/students/StudentDashboard";
+import NewTicketForm from "./components/students/NewTicketForm";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/" />
           <Route exact path="/studentdashboard" component={StudentDashboard} />
+          <Route exact path="/newticketform" component={NewTicketForm} />
         </Switch>
       </div>
     </Router>
