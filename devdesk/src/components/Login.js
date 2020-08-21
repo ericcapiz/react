@@ -2,8 +2,21 @@ import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { useHistory, Route } from 'react-router-dom';
 
 const Login = (props) => {
+
+    const history = useHistory();
+
+    const goHome = () => {
+        console.log("Going home")
+        history.push('/');
+      }
+
+    const goRegister = () => {
+        console.log("Going to register")
+        history.push('/register');
+      }
 
     //Set the state for user
     const [user, setUser] = useState({ username: "", password: "" })
@@ -128,7 +141,11 @@ const Login = (props) => {
 
              {/* If user hasn't registered, they would click the Register button instead and go to Eric's Register page*/}
              <h3>Haven't registered?</h3>
-             <Button type="submit" >Register</Button>
+            
+             <Button type="submit" onClick={goRegister}>Register</Button>
+
+             <Button onClick={goHome}>Home</Button>
+             {/* <Route exact path="/" /> */}
 
         </div>
 
