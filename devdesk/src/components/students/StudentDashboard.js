@@ -7,6 +7,7 @@ const StudentDashboard = () => {
         <div>
 
         <button>Create a new ticket</button>
+        <h3>(Search bar goes here)</h3>
 
         <div>
         <h3>Open Tickets</h3>
