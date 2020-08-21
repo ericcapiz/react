@@ -12,7 +12,10 @@ function App() {
     <Router>
       <div>
         <Switch>
-          <PrivateRoute exact path="/login" component={Login} />
+          <PrivateRoute exact path="/helper_dashboard" component={HelperDashboard} />
+          <PrivateRoute exact path="/student_dashboard" component={StudentDashboard} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
           <Route exact path="/" />
         </Switch>
         </div>
