@@ -6,10 +6,10 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 const Login = (props) => {
 
     //Set the state for user
-    const [user, setUser] = useState({ Username: "", Password: "" })
+    const [user, setUser] = useState({ username: "", password: "" })
 
     //Set the state for error 
-    const [errors, setErrors] = useState({ Username: "", Password: "" })
+    const [errors, setErrors] = useState({ username: "", password: "" })
 
     //Set the state for server error
     const [serverError, setServerError] = useState("")
@@ -102,7 +102,7 @@ const Login = (props) => {
           value={user.username}
           onChange={handleChanges} >
           </Input>
-        {/* {errors.username.length > 0 ? <p>{errors.username}</p> : null} */}
+        {errors.username.length > 0 ? <p>{errors.username}</p> : null}
         </Label>
         </FormGroup>
        
@@ -118,7 +118,7 @@ const Login = (props) => {
           value={user.password}
           onChange={handleChanges} >
           </Input>
-        {/* {errors.password.length > 0 ? <p>{errors.password}</p> : null} */}
+        {errors.password.length > 0 ? <p>{errors.password}</p> : null}
         </Label>
         </FormGroup>
        
