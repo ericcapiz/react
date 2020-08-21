@@ -95,10 +95,15 @@ const Register =()=>{
         text: yup.boolean(),
         byemail: yup.boolean(),
         username:yup.string().required('Username is required'),
+
+
+        
         password:yup.string().required('Password is required').matches(
             /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
             "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"),
-        repassword:yup.string().oneOf([yup.ref('password'), null]).required('Password confirm is required'),
+        repassword:yup.string()
+        .oneOf([yup.ref('password'), null], "Passwords don't match!")
+        .required('Required'),
         helper: yup.boolean(),
         student: yup.boolean()
     });
@@ -241,3 +246,6 @@ const Register =()=>{
     )
 }
 export default Register;
+
+
+////NEED TO FIX ERROR WITH THE CONFIRM PASSWORD ERROR MSG DISPLAYING
