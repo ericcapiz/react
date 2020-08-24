@@ -1,139 +1,162 @@
-import React, { useState, useEffect } from 'react';
-import * as yup from 'yup';
-import axios from 'axios';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import React, { useState, useEffect } from "react";
+import * as yup from "yup";
+import axios from "axios";
+import { Button, Form, FormGroup, Label, Input, NavLink, Container, Col, FormFeedback } from "reactstrap";
+import { useHistory, Route } from "react-router-dom";
+import "./Login.css";
 
 const Login = (props) => {
+  const history = useHistory();
 
-    //Set the state for user
-    const [user, setUser] = useState({ Username: "", Password: "" })
+  const goHome = () => {
+    console.log("Going home");
+    history.push("/");
+  };
 
-    //Set the state for error 
-    const [errors, setErrors] = useState({ Username: "", Password: "" })
+  const goRegister = () => {
+    console.log("Going to register");
+    history.push("/register");
+  };
 
-    //Set the state for server error
-    const [serverError, setServerError] = useState("")
+  const goStudentDashboard = () => {
+    console.log("Going to student dashboard");
+    history.push("/studentdashboard");
+  };
 
-    //Set the state for button
-    const [button, setButton] = useState(true);
+  //Set the state for user
+  const [user, setUser] = useState({ username: "", password: "" });
 
-    //Form schema for login
-    const formSchema = yup.object().shape({
+  //Set the state for error
+  const [errors, setErrors] = useState({ username: "", password: "" });
 
-        username: yup.string().required("Name is required"),
-        password: yup.string().required("Password is required")
+  //Set the state for server error
+  const [serverError, setServerError] = useState("");
 
-    })
+  //Set the state for button
+  const [button, setButton] = useState(true);
 
-     //Form validation function for login
-     const validateChange = (e) => {
+  //Form schema for login
+  const formSchema = yup.object().shape({
+    username: yup.string().required("Name is required"),
+    password: yup.string().required("Password is required"),
+  });
 
-        yup
-        .reach(formSchema, e.target.name)
-        .validate(e.target.name ? e.target.value : null)
-        .then(valid => {
-            setErrors({
-                ...errors,
-                [e.target.name]: "" //Clear any error messages
-            })
-            
-        })
-        .catch(err => {
-            console.log(err)
-            setErrors({
-                ...errors,
-                [e.target.name] : err.errors[0] //Display the error message
-            })
-        })
-    }
+  //Form validation function for login
+  const validateChange = (e) => {
+    yup
+      .reach(formSchema, e.target.name)
+      .validate(e.target.name ? e.target.value : null)
+      .then((valid) => {
+        setErrors({
+          ...errors,
+          [e.target.name]: "", //Clear any error messages
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrors({
+          ...errors,
+          [e.target.name]: err.errors[0], //Display the error message
+        });
+      });
+  };
 
-    //Handle user input changes for login
-    const handleChanges = (e) => {
+  //Handle user input changes for login
+  const handleChanges = (e) => {
+    e.persist();
+    console.log("new input here!", e.target.value);
+    const newUser = { ...user, [e.target.name]: e.target.value };
+    validateChange(e);
+    setUser(newUser);
+  };
 
-        e.persist()
-        console.log("new input here!", e.target.value)
-        const newUser = { ...user, [e.target.name]: e.target.value }
-        validateChange(e)
-        setUser(newUser)
-      };
+  //Submit form function for login
+  const submitForm = (e) => {
+    e.preventDefault();
+    console.log("Form submitted!");
 
-      //Submit form function for login
-      const submitForm = (e) => {
-        e.preventDefault(); 
-        console.log("Form submitted!")
+    axios
+      .post("https://reqres.in/api/users", user) //Temporary API
+      .then((response) => {
+        console.log("POST is successful!", response.data);
+        setServerError(null);
+        setUser({ Username: "", Password: "" }); //Clear the form
+      })
+      .catch((err) => {
+        setServerError("API POST request failed!");
+      });
+  };
 
-        axios
-            .post("https://reqres.in/api/users", user) //Temporary API
-            .then(response => {
-                console.log("POST is successful!", response.data)
-                setServerError(null)
-                setUser({ Username: "", Password: "" }) //Clear the form
-            })
-            .catch(err => {
-                setServerError("API POST request failed!")
-            })
-    
-      };
+  //If everything checks, then button is enabled
+  useEffect(() => {
+    formSchema.isValid(user).then((isValid) => {
+      setButton(!isValid);
+    });
+  }, [user]);
 
-    //If everything checks, then button is enabled
-    useEffect(() => {
-        formSchema.isValid(user)
-        .then(isValid => {
-            setButton(!isValid)
-        })
-    }, [user])
+  return (
+    <div>
+      <NavLink className="home" onClick={goHome}>Home</NavLink>
 
-    return (
+      <div className="login">
 
-        <div>
+      <h3>We're here to help.</h3>
+      <p>Create a help ticket and we'll connect you <br></br> with a Lambda School Helper.</p>
 
-        <Form inline onSubmit={submitForm}>
-            {serverError ? <p>{serverError}</p> : null}
+      <Container className="form">
+      <Form onSubmit={submitForm}>
+        {serverError ? <p>{serverError}</p> : null}
 
         {/* Username Field */}
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Label htmlFor="username" className="mr-sm-2">
-              Username
-          <Input 
-          type="text" 
-          name="username" 
-          id="username" 
-          placeholder="Austin Allred" 
-          value={user.username}
-          onChange={handleChanges} >
-          </Input>
-        {/* {errors.username.length > 0 ? <p>{errors.username}</p> : null} */}
-        </Label>
+        <Col>
+        <FormGroup className="username" >
+          <Label htmlFor="username" xs={4}>
+            <Input 
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Username"
+              value={user.username}
+              onChange={handleChanges}
+            ></Input>
+            {errors.username.length > 0 ? <p className="error">{errors.username}</p> : null}
+          </Label>
         </FormGroup>
-       
-          {/* Password Field */}
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Label htmlFor="password" className="mr-sm-2">
-              Password 
-          <Input 
-          type="password" 
-          name="password" 
-          id="password" 
-          placeholder="Don't tell!"
-          value={user.password}
-          onChange={handleChanges} >
-          </Input>
-        {/* {errors.password.length > 0 ? <p>{errors.password}</p> : null} */}
-        </Label>
+        </Col>
+
+        {/* Password Field */}
+        <Col>
+        <FormGroup >
+          <Label htmlFor="password" xs={4} >
+            <Input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              value={user.password}
+              onChange={handleChanges}
+            ></Input>
+            {errors.password.length > 0 ? <p className="error">{errors.password}</p> : null}
+          </Label>
         </FormGroup>
-       
-        <Button type="submit" disabled = {button} >Submit</Button>
-      
-        </Form>
+        </Col>
 
-             {/* If user hasn't registered, they would click the Register button instead and go to Eric's Register page*/}
-             <h3>Haven't registered?</h3>
-             <Button type="submit" >Register</Button>
+        <Button type="submit" disabled={button} onClick={goStudentDashboard} className="buttonForm" style={{backgroundColor: "#74CBC1"}}>
+          Login
+        </Button>
+      </Form>
+      </Container>
 
-        </div>
+      {/* If user hasn't registered, they would click the Register button instead and go to Eric's Register page*/}
+      <div className="navRegister">
+      <NavLink className="nonClick">Haven't registered? </NavLink>
+      <NavLink onClick={goRegister} className="click">Click here</NavLink>
+      </div>
 
-    );
-    
-}
+     </div>
+
+    </div>
+  );
+};
 
 export default Login;
