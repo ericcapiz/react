@@ -1,21 +1,22 @@
-import React from 'react';
-import {Route} from 'react-router-dom';
-import './App.css';
-import Register from './components/Register';
-import HelperDash from './components/Helper/HelperDashboard';
-import HelperTickets from './components/Helper/HelperTickets';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./App.css";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import HelperDashboard from "./components/HelperDashboard";
+import StudentDashboard from "./components/StudentDashboard";
+import PrivateRoute from "./components/utils/PrivateRoute";
 
 function App() {
   return (
-    <div className="App">
-      <Route exact path = "/">
-     <Register />
-     </Route>
-     <Route exact path="/helpertickets"><HelperTickets /></Route>
-     <Route exact path = "/helperdash">
-     <HelperDash />
-     </Route>
-    </div>
+    <Router>
+      <div>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/" />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
