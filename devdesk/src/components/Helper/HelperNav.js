@@ -1,5 +1,4 @@
 import React from 'react';
-import HelperLogo from './HelperLogo';
 import styled from 'styled-components';
 
 
@@ -9,7 +8,7 @@ justify-content: flex-end;
 align-items: center;
 padding: 30px;
 position: relative;
-border-bottom: 2px solid lightblue;
+border-bottom: 2px solid red;
 
 
 a{
@@ -17,6 +16,11 @@ a{
     padding: 0 20px;
     text-decoration: none;
     justify-content: flex-end;
+    font-weight: bold;
+    color: black;
+    :hover{
+        color: #0066cc;
+    }
 }
 h3{
     position: absolute;
@@ -26,7 +30,7 @@ h3{
 }
 span{
     font-size: 30px;
-    color: teal;
+    color: red;
     padding: 0 15px;
 }
 

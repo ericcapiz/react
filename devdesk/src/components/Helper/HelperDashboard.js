@@ -1,6 +1,5 @@
 import React from 'react';
 import HelperNav from './HelperNav';
-import HelperLogo from './HelperLogo';
 import HelperBody from './HelperBody';
 
 

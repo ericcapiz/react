@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import phone from './phone.png';
 
@@ -14,9 +15,15 @@ margin-top: 150px;
 button{
     color:black;
     border-radius:10px;
-    background-color: #48c8e8;
+    background-color: #0066cc;
     height: 50px;
+    width: 200px;
+
     font-size:20px;
+    &:hover{
+        cursor: pointer;
+        background-color: blue;
+    }
 }
 `
 const SideDiv2 = styled.div `
@@ -36,7 +43,7 @@ const HelperBody = ()=>{
         <SideDiv>
         <h1>Making it easier to help students</h1>
         <p>View student help requests and assign tickets to yourself and others</p>
-        <button>Get Started</button>
+        <Link to={`/helpertickets`}><button>Get Started</button></Link>
         </SideDiv>
         <SideDiv2><img src={phone}></img></SideDiv2>
         </MainDiv>
