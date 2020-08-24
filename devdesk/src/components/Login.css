@@ -1,6 +1,7 @@
 .home {
     text-align: center;
     margin-top: 2.5%;
+    cursor: pointer;
 }
 
 .login {
@@ -31,8 +32,13 @@
 
 .click {
     text-decoration: underline;
+    cursor: pointer;
    
 }
+
+/* .click :hover {
+    text-decoration: underline;
+} */
 
 .error {
     color: red;
