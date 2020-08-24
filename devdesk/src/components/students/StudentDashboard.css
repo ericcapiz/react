@@ -1,0 +1,52 @@
+.ticketBar {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+h3 {
+    width: 100%;
+    padding: 3% 10%;
+    background-color: rgba(228, 241, 254, 0.5);
+    text-align: center;
+}
+
+.queue {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+i {
+    padding-right: 1%;
+}
+
+Form {
+    padding-right: 10%;
+
+}
+
+.card {
+    text-align: justify;
+    width: 50%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+
+.ticket {
+    padding-top: 1.5%;
+}
+
+.ticketTitle {
+    padding-top: 1.5%;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
