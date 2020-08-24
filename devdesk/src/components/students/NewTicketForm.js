@@ -58,6 +58,7 @@ const NewTicketForm = () => {
                         <option value = "React">React</option>
                         <option value = "Back End">Back End</option>
                         <option value = "SASS">SASS</option>
+                        <option value = "Animation">Animation</option>
                         </select>
             
             </Label>

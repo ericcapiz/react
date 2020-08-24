@@ -1,6 +1,6 @@
 import React from "react";
 import TicketList from "../../components/TicketList";
-import { useHistory, Route } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 
 const StudentDashboard = () => {
@@ -12,8 +12,6 @@ const StudentDashboard = () => {
       history.push("/newticketform");
     };
 
-    
-
     return (
         <div>
 
@@ -24,7 +22,7 @@ const StudentDashboard = () => {
 
         <div>
         <h3>Open Tickets</h3>
-        <TicketList />
+        <TicketList />        
         <h3>Resolved Tickets</h3>
         </div>
 
