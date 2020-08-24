@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import HelperDashboard from "./components/HelperDashboard";
+import HelperDashboard from "./components//Helper/HelperDashboard";
 import PrivateRoute from "./components/utils/PrivateRoute";
 import StudentDashboard from "./components/students/StudentDashboard";
 import NewTicketForm from "./components/students/NewTicketForm";
