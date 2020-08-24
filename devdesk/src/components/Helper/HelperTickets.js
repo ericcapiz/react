@@ -1,21 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
 import HelperNav from './HelperNav';
+import StudentTicket from './Tickets';
 
 
 const MainDiv = styled.div `
+display: flex;
+flex-direction: column;
+h1{
+    text-align:center;
     font-size: 4rem;
     margin: 80px;
+}
 
 `;
 const SubDiv = styled.div `
 font-size: 20px;
 display: flex;
+flex-direction: column;
 justify-content: center;
-align-content: center;
-background-color: rgba(228, 241, 254, 0.5);
+align-items: center;
+padding: 20px 0;
+
 h1{
-    width: 500px;
+    background-color: rgba(228, 241, 254, 0.5);
+    display: flex;
+    align-content: center;
+    width: 100%;
     font-size: 30px;
     padding: 30px 200px;
     &:hover{
@@ -30,10 +41,12 @@ const HelperTickets = ()=>{
         <div>
             <HelperNav />
         <MainDiv>
-            Ticket Queue
+            <h1>Ticket Queue</h1>
             <SubDiv>
         <h1>All Tickets</h1>
-        <h1>My Tickets</h1>
+        <StudentTicket />
+        {/* <h1>My Tickets</h1> */}
+        
         </SubDiv>
         </MainDiv>
         </div>

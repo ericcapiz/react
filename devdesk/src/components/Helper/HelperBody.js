@@ -12,10 +12,13 @@ const SideDiv = styled.div `
 display: flex;
 flex-direction: column;
 margin-top: 150px;
+align-items:center;
 button{
+    
     color:black;
     border-radius:10px;
     background-color: #0066cc;
+    justify-content: center;
     height: 50px;
     width: 200px;
 
@@ -33,7 +36,6 @@ width: 100vh;
 
 img{
     object-fit:scale-down;
-    // height: 500px;
 }
 `
 
