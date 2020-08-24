@@ -76,11 +76,13 @@ const Login = (props) => {
         console.log("Form submitted!")
 
         axios
-            .post("https://reqres.in/api/users", user) //Temporary API
+            .post("http://localhost:5000/api/login", user) //Temporary API
             .then(response => {
                 console.log("POST is successful!", response.data)
+                window.localStorage.setItem('token', response.data.payload)
                 setServerError(null)
                 setUser({ Username: "", Password: "" }) //Clear the form
+                props.history.push('/studentdashboard')
             })
             .catch(err => {
                 setServerError("API POST request failed!")
