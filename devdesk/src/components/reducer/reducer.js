@@ -1,9 +1,11 @@
 const initialTicketState = {
     tickets: [
         {
-            title:'',
-            description:'',
-            id:''
+            ticketNumber: '',
+            category: '',
+            title: '',
+            description: '',
+            effort: '',
         }
     ]
 }
