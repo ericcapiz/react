@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from "axios";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input, NavLink, Container, Col, FormFeedback } from "reactstrap";
 import { useHistory, Route } from "react-router-dom";
+import "./Login.css";
 
 const Login = (props) => {
   const history = useHistory();
@@ -95,55 +96,65 @@ const Login = (props) => {
 
   return (
     <div>
-      <Form inline onSubmit={submitForm}>
+      <NavLink className="home" onClick={goHome}>Home</NavLink>
+
+      <div className="login">
+
+      <h3>We're here to help.</h3>
+      <p>Create a help ticket and we'll connect you <br></br> with a Lambda School Helper.</p>
+
+      <Container className="form">
+      <Form onSubmit={submitForm}>
         {serverError ? <p>{serverError}</p> : null}
 
         {/* Username Field */}
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Label htmlFor="username" className="mr-sm-2">
-            Username
-            <Input
+        <Col>
+        <FormGroup className="username" >
+          <Label htmlFor="username" xs={4}>
+            <Input 
               type="text"
               name="username"
               id="username"
-              placeholder="Austin Allred"
+              placeholder="Username"
               value={user.username}
               onChange={handleChanges}
             ></Input>
-            {errors.username.length > 0 ? <p>{errors.username}</p> : null}
+            {errors.username.length > 0 ? <p className="error">{errors.username}</p> : null}
           </Label>
         </FormGroup>
+        </Col>
 
         {/* Password Field */}
-        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-          <Label htmlFor="password" className="mr-sm-2">
-            Password
+        <Col>
+        <FormGroup >
+          <Label htmlFor="password" xs={4} >
             <Input
               type="password"
               name="password"
               id="password"
-              placeholder="Don't tell!"
+              placeholder="Password"
               value={user.password}
               onChange={handleChanges}
             ></Input>
-            {errors.password.length > 0 ? <p>{errors.password}</p> : null}
+            {errors.password.length > 0 ? <p className="error">{errors.password}</p> : null}
           </Label>
         </FormGroup>
+        </Col>
 
-        <Button type="submit" disabled={button} onClick={goStudentDashboard}>
-          Submit
+        <Button type="submit" disabled={button} onClick={goStudentDashboard} className="buttonForm" style={{backgroundColor: "#74CBC1"}}>
+          Login
         </Button>
       </Form>
+      </Container>
 
       {/* If user hasn't registered, they would click the Register button instead and go to Eric's Register page*/}
-      <h3>Haven't registered?</h3>
+      <div className="navRegister">
+      <NavLink className="nonClick">Haven't registered? </NavLink>
+      <NavLink onClick={goRegister} className="click">Click here</NavLink>
+      </div>
 
-      <Button type="submit" onClick={goRegister}>
-        Register
-      </Button>
+     </div>
 
-      <Button onClick={goHome}>Home</Button>
-      <Route exact path="/" />
     </div>
   );
 };
