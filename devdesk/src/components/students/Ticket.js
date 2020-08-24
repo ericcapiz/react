@@ -19,8 +19,8 @@ const Ticket = ( { ticket } ) => {
         <CardText>Description: {ticket.description}</CardText>
         <CardText>What I've Tried: {ticket.effort}</CardText>
         <Button style={{backgroundColor: "#0066cc", marginRight: "10px", cursor: "pointer"}}>Edit</Button>
-        <Button style={{marginRight: "10px", backgroundColor: "#0066cc", cursor: "pointer"}}>Delete</Button>
-        <Button style={{marginRight: "10px", backgroundColor: "#0066cc", cursor: "pointer"}}>Resolve</Button>
+        <Button style={{marginRight: "10px", backgroundColor: "red", cursor: "pointer"}}>Delete</Button>
+        <Button style={{marginRight: "10px", backgroundColor: "green", cursor: "pointer"}}>Resolve</Button>
         </CardBody>
         </Card>
         </div>
