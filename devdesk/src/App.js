@@ -9,6 +9,8 @@ import PrivateRoute from "./components/utils/PrivateRoute";
 import StudentDashboard from "./components/students/StudentDashboard";
 import NewTicketForm from "./components/students/NewTicketForm";
 
+import { connect } from 'react-redux'
+
 function App() {
   return (
     <Router>
@@ -38,4 +40,13 @@ function App() {
   );
 }
 
-export default App;
+const mapsStateToProps = state => {
+  return {
+    tickets: state.tickets
+  }
+}
+
+export default connect(
+  mapsStateToProps,
+  {}
+  ) (App);

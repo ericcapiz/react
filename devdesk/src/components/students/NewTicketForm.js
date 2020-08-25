@@ -1,90 +1,96 @@
-import React from 'react'
+import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { connect } from "react-redux";
+import { addNewTicket } from "../actions/actions";
 import "./StudentDashboard.css";
-import StudentNav from './StudentNav';
+import StudentNav from "./StudentNav";
 
-const NewTicketForm = () => {
+const NewTicketForm = (props) => {
+  const [newTicket, setNewTicket] = useState({
+    title: "",
+    description: "",
+    effort: "",
+  });
 
-    return (
+  const submitNewTicket = (e) => {
+    console.log("submitted!");
+    e.preventDefault();
+    props.addNewTicket(newTicket);
+  };
 
-        <div>
+  const handleChanges = (e) => {
+    setNewTicket({ ...newTicket, [e.target.name]: e.target.value });
+  };
 
-            <StudentNav />
+  return (
+    <div>
+      <Form onSubmit={submitNewTicket}>
+        <FormGroup>
+          <Label htmlFor="title" xs={4}>
+            <Input
+              id="title"
+              type="text"
+              name="title"
+              value={newTicket.title}
+              onChange={handleChanges}
+              placeholder="Title goes here"
+            />
+          </Label>
+        </FormGroup>
 
-        <div className="newTicketForm">
+        <FormGroup>
+          <Label htmlFor="description" xs={4}>
+            <Input
+              id="description"
+              type="text"
+              name="description"
+              value={newTicket.description}
+              onChange={handleChanges}
+              placeholder="Describe your problem"
+            />
+          </Label>
+        </FormGroup>
 
-            <h2>Create your new ticket.</h2>
+        <FormGroup>
+          <Label htmlFor="effort" xs={4}>
+            <Input
+              id="effort"
+              type="text"
+              name="effort"
+              value={newTicket.effort}
+              onChange={handleChanges}
+              placeholder="What have you tried doing?"
+            />
+          </Label>
+        </FormGroup>
 
+        <FormGroup>
+          <Label htmlFor="category" className="dropDownNewTicket">
+            <select id="category" name="category">
+              <option>Pick a category</option>
+              <option value="React">React</option>
+              <option value="Back End">Back End</option>
+              <option value="SASS">SASS</option>
+              <option value="Animation">Animation</option>
+            </select>
+          </Label>
+        </FormGroup>
 
-        <Form className="newTicketFormGroup" >
+        <Button type="submit" onClick={submitNewTicket}>
+          Submit Ticket
+        </Button>
+      </Form>
+    </div>
+  );
+};
 
-            <FormGroup>
-            <Label htmlFor="title" xs={4}>
-                <Input
-                    id = "title"
-                    type = "text"
-                    name = "title"
-                    placeholder = "Title goes here"
-                    />
-   
-            </Label>
-            </FormGroup>
+const mapsStateToProps = (state) => {
+  return {
+    tickets: state.tickets,
+    title: state.title,
+    description: state.description,
+    effort: state.effort,
+  };
+};
 
-            <FormGroup>
-            <Label htmlFor="description" xs={4}>
-                <Input 
-                    id = "description"
-                    type = "text"
-                    name = "description"
-                    placeholder = "Describe your problem"
-                    />
-
-            </Label>
-            </FormGroup>
-
-            <FormGroup>
-            <Label htmlFor = "effort" xs={4}>
-                <Input
-                    id = "effort"
-                    type = "text"
-                    name = "effort"
-                    placeholder = "What have you tried doing?"
-         
-                    />
-
-            </Label>
-            </FormGroup>
-
-            <FormGroup>
-            <Label htmlFor = "category" className="dropDownNewTicket"> 
-                
-                <select
-                    id = "category"
-                    name = "category">
-                        <option>Pick a category</option>
-                        <option value = "React">React</option>
-                        <option value = "Back End">Back End</option>
-                        <option value = "SASS">SASS</option>
-                        <option value = "Animation">Animation</option>
-                        </select>
-            
-            </Label>
-            </FormGroup>
-
-            <Button type = "submit" className="newTicketSubmitButton">
-                Submit Ticket
-            </Button>
-
-        </Form>
-
-        </div>
-
-        </div>
-
-
-
-    )
-
-}
-
-export default NewTicketForm
+export default connect(mapsStateToProps, { addNewTicket })(NewTicketForm);
