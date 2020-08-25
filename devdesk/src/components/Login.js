@@ -14,7 +14,7 @@ import {
 } from "reactstrap";
 import { useHistory, Route } from "react-router-dom";
 import "./Login.css";
-import StudentNav from './students/StudentNav';
+import StudentNav from "./students/StudentNav";
 
 const Login = (props) => {
   const history = useHistory();
@@ -49,9 +49,13 @@ const Login = (props) => {
   //Form schema for login
   const formSchema = yup.object().shape({
     username: yup.string().required("Name is required"),
-    password: yup.string().required('Password is required').matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one Special Case Character"),
+    password: yup
+      .string()
+      .required("Password is required")
+      .matches(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one Special Case Character"
+      ),
   });
 
   //Form validation function for login
@@ -93,7 +97,7 @@ const Login = (props) => {
       .then((response) => {
         console.log("POST is successful!", response.data);
         setServerError(null);
-        setUser({ Username: "", Password: "" }); //Clear the form
+        setUser({ username: "", password: "", rememberMe: "" }); //Clear the form
       })
       .catch((err) => {
         setServerError("API POST request failed!");
@@ -109,7 +113,7 @@ const Login = (props) => {
 
   return (
     <div>
-     <StudentNav />
+      <StudentNav />
       <div className="login">
         <h2>We're here to help.</h2>
         <p>
@@ -118,7 +122,7 @@ const Login = (props) => {
         </p>
 
         <Container className="form">
-          <Form onSubmit={submitForm} className="formGroup"> 
+          <Form onSubmit={submitForm} className="formGroup">
             {serverError ? <p>{serverError}</p> : null}
 
             {/* Username Field */}
@@ -160,12 +164,12 @@ const Login = (props) => {
             </Col>
 
             <FormGroup check>
-        <Label check>
-          <Input type="checkbox" /> Remember me
-        </Label>
-      </FormGroup>
+              <Label htmlFor="check" check>
+                <Input type="checkbox" name="check" id="check" /> Remember me
+              </Label>
+            </FormGroup>
 
-      <NavLink>Forgot username/password?</NavLink>
+            <NavLink>Forgot username/password?</NavLink>
 
             <Button
               type="submit"
