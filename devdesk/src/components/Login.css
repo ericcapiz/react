@@ -6,7 +6,7 @@
 
 .login {
     text-align: center;
-    margin-top: 5%;
+    margin-top: 3%;
 }
 
 .form {
@@ -24,7 +24,7 @@
     flex-direction: row;
     align-content: center;
     justify-content: center;
-    margin-top: 3%;
+    margin-top: 1%;
 }
 
 .nonClick {

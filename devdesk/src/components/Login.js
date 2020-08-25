@@ -142,6 +142,12 @@ const Login = (props) => {
         </FormGroup>
         </Col>
 
+        <FormGroup check>
+        <Label check>
+          <Input type="checkbox" /> Remember me
+        </Label>
+      </FormGroup>
+
         <Button type="submit" disabled={button} onClick={goStudentDashboard} className="buttonForm" style={{backgroundColor: "#74CBC1"}}>
           Login
         </Button>
@@ -149,6 +155,9 @@ const Login = (props) => {
       </Container>
 
       {/* If user hasn't registered, they would click the Register button instead and go to Eric's Register page*/}
+      
+      <NavLink>Forgot username/password?</NavLink>
+      
       <div className="navRegister">
       <NavLink className="nonClick">Haven't registered? </NavLink>
       <NavLink onClick={goRegister} className="click">Click here</NavLink>
