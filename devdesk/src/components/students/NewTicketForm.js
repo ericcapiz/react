@@ -1,16 +1,25 @@
 import React from 'react'
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import "./StudentDashboard.css";
+import StudentNav from './StudentNav';
 
 const NewTicketForm = () => {
 
     return (
 
+        <div>
 
-        <Form  >
+            <StudentNav />
+
+        <div className="newTicketForm">
+
+            <h2>Create your new ticket.</h2>
+
+
+        <Form className="newTicketFormGroup" >
 
             <FormGroup>
-            <Label htmlFor="title">
-                Title
+            <Label htmlFor="title" xs={4}>
                 <Input
                     id = "title"
                     type = "text"
@@ -22,8 +31,7 @@ const NewTicketForm = () => {
             </FormGroup>
 
             <FormGroup>
-            <Label htmlFor="description">
-                Description
+            <Label htmlFor="description" xs={4}>
                 <Input 
                     id = "description"
                     type = "text"
@@ -35,8 +43,7 @@ const NewTicketForm = () => {
             </FormGroup>
 
             <FormGroup>
-            <Label htmlFor = "effort">
-                What I've tried
+            <Label htmlFor = "effort" xs={4}>
                 <Input
                     id = "effort"
                     type = "text"
@@ -49,7 +56,7 @@ const NewTicketForm = () => {
             </FormGroup>
 
             <FormGroup>
-            <Label htmlFor = "category">
+            <Label htmlFor = "category" className="dropDownNewTicket"> 
                 
                 <select
                     id = "category"
@@ -64,12 +71,15 @@ const NewTicketForm = () => {
             </Label>
             </FormGroup>
 
-            <Button type = "submit" >
+            <Button type = "submit" className="newTicketSubmitButton">
                 Submit Ticket
             </Button>
 
         </Form>
 
+        </div>
+
+        </div>
 
 
 

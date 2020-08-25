@@ -14,6 +14,7 @@ import {
 } from "reactstrap";
 import { useHistory, Route } from "react-router-dom";
 import "./Login.css";
+import StudentNav from "../components/students/StudentNav";
 
 const Login = (props) => {
   const history = useHistory();
@@ -30,7 +31,7 @@ const Login = (props) => {
 
   const goStudentDashboard = () => {
     console.log("Going to student dashboard");
-    history.push("/studentdashboard");
+    history.push("/student_dashboard");
   };
 
   //Set the state for user
@@ -110,6 +111,7 @@ const Login = (props) => {
         Home
       </NavLink>
 
+      <StudentNav />
       <div className="login">
         <h3>We're here to help.</h3>
         <p>

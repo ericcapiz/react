@@ -6,11 +6,12 @@
 
 .login {
     text-align: center;
-    margin-top: 5%;
+    margin-top: 3%;
 }
 
 .form {
     margin-top: 2.5%;
+    
 }
 
 .buttonForm {
@@ -23,7 +24,7 @@
     flex-direction: row;
     align-content: center;
     justify-content: center;
-    margin-top: 3%;
+    margin-top: 1%;
 }
 
 .nonClick {
@@ -36,13 +37,13 @@
    
 }
 
-/* .click :hover {
-    text-decoration: underline;
-} */
-
 .error {
     color: red;
     font-size: 0.75rem;
     text-align: left;
     margin-top: 2.5%;
+}
+
+.loginForm {
+    margin-left: 10%;
 }

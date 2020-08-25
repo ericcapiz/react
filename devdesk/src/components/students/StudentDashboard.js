@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import TicketList from "../../components/TicketList";
 import { useHistory } from "react-router-dom";
+import "./StudentDashboard.css";
+import StudentNav from './StudentNav';
 
 
 const StudentDashboard = () => {
@@ -9,25 +11,25 @@ const StudentDashboard = () => {
 
     const goNewTicketForm = () => {
       console.log("Going to new ticket form");
-      history.push("/newticketform");
+      history.push("/new_ticket_form");
     };
 
     return (
         <div>
+          <StudentNav />
 
-        <h1>Hi (User)</h1>
+          <h2 style={{fontFamily: "Roboto Mono , serif"}}>My Tickets</h2>
+       
 
-        <button onClick={goNewTicketForm}>Create a new ticket</button>
-        <h3>(Search bar goes here)</h3>
-
-        <div>
-        <h3>Open Tickets</h3>
-        <TicketList />        
-        <h3>Resolved Tickets</h3>
+        <div className="ticketBar">
+        <h3 style={{fontFamily: "Roboto Mono , serif"}}>Open Tickets</h3>
+        <h3 style={{fontFamily: "Roboto Mono , serif"}}>Resolved Tickets</h3>
         </div>
 
+        <TicketList />       
 
         </div>
+     
 
 
     )
