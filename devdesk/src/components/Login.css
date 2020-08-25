@@ -11,6 +11,7 @@
 
 .form {
     margin-top: 2.5%;
+    
 }
 
 .buttonForm {
@@ -36,13 +37,13 @@
    
 }
 
-/* .click :hover {
-    text-decoration: underline;
-} */
-
 .error {
     color: red;
     font-size: 0.75rem;
     text-align: left;
     margin-top: 2.5%;
+}
+
+.loginForm {
+    margin-left: 10%;
 }

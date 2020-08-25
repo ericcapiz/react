@@ -4,6 +4,7 @@ import axios from "axios";
 import { Button, Form, FormGroup, Label, Input, NavLink, Container, Col, FormFeedback } from "reactstrap";
 import { useHistory, Route } from "react-router-dom";
 import "./Login.css";
+import StudentNav from '../components/students/StudentNav';
 
 const Login = (props) => {
   const history = useHistory();
@@ -96,15 +97,15 @@ const Login = (props) => {
 
   return (
     <div>
-      <NavLink className="home" onClick={goHome}>Home</NavLink>
 
+      <StudentNav />
       <div className="login">
 
-      <h3>We're here to help.</h3>
+      <h1>We're here to help.</h1>
       <p>Create a help ticket and we'll connect you <br></br> with a Lambda School Helper.</p>
 
       <Container className="form">
-      <Form onSubmit={submitForm}>
+      <Form onSubmit={submitForm} className="loginForm">
         {serverError ? <p>{serverError}</p> : null}
 
         {/* Username Field */}

@@ -6,10 +6,12 @@
 
 h1 {
     text-align: center;
+    font-family: "Roboto Mono , serif"
 }
 
 h2 {
     text-align: center;
+    font-family: "Roboto Mono , serif"
 }
 
 h3 {
@@ -17,6 +19,7 @@ h3 {
     padding: 3% 10%;
     background-color: rgba(228, 241, 254, 0.5);
     text-align: center;
+    font-family: "Roboto Mono , serif"
 }
 
 .queue {
@@ -49,4 +52,23 @@ Form {
     padding-top: 1.5%;
     font-size: 1.5rem;
     font-weight: bold;
+}
+
+.newTicketForm {
+    text-align: center;
+    margin-top: 5%;
+}
+
+.newTicketFormGroup {
+    margin-left: 10%;
+    margin-top: 5%;
+}
+
+.dropDownNewTicket {
+    margin-top: 2.5%;
+  
+}
+
+.newTicketSubmitButton {
+    margin-top: 2.5%;
 }
