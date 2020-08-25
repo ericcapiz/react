@@ -23,8 +23,11 @@ const NewTicketForm = (props) => {
   };
 
   return (
+      <div>
+          <StudentNav />
+          <h3>Create new ticket.</h3>
     <div>
-      <Form onSubmit={submitNewTicket}>
+      <Form onSubmit={submitNewTicket} className="newTicketFormGroup">
         <FormGroup>
           <Label htmlFor="title" xs={4}>
             <Input
@@ -76,10 +79,11 @@ const NewTicketForm = (props) => {
           </Label>
         </FormGroup>
 
-        <Button type="submit" onClick={submitNewTicket}>
+        <Button type="submit" onClick={submitNewTicket} style={{ backgroundColor: "#74CBC1" }}>
           Submit Ticket
         </Button>
       </Form>
+    </div>
     </div>
   );
 };

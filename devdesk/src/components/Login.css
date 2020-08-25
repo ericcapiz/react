@@ -9,9 +9,22 @@
     margin-top: 3%;
 }
 
+.loginNav {
+    display: flex;
+    font-family: "Roboto Mono , serif";
+    margin-left: 2%;
+    margin-top: 2%;
+    justify-content: space-between;
+    align-content: baseline;
+}
+
 .form {
     margin-top: 2.5%;
     
+}
+
+.formGroup {
+    margin-left: 10%;
 }
 
 .buttonForm {

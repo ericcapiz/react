@@ -14,7 +14,7 @@ import {
 } from "reactstrap";
 import { useHistory, Route } from "react-router-dom";
 import "./Login.css";
-import StudentNav from "../components/students/StudentNav";
+import StudentNav from './students/StudentNav';
 
 const Login = (props) => {
   const history = useHistory();
@@ -49,7 +49,9 @@ const Login = (props) => {
   //Form schema for login
   const formSchema = yup.object().shape({
     username: yup.string().required("Name is required"),
-    password: yup.string().required("Password is required"),
+    password: yup.string().required('Password is required').matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one Special Case Character"),
   });
 
   //Form validation function for login
@@ -107,20 +109,16 @@ const Login = (props) => {
 
   return (
     <div>
-      <NavLink className="home" onClick={goHome}>
-        Home
-      </NavLink>
-
-      <StudentNav />
+     <StudentNav />
       <div className="login">
-        <h3>We're here to help.</h3>
+        <h2>We're here to help.</h2>
         <p>
           Create a help ticket and we'll connect you <br></br> with a Lambda
           School Helper.
         </p>
 
         <Container className="form">
-          <Form onSubmit={submitForm}>
+          <Form onSubmit={submitForm} className="formGroup"> 
             {serverError ? <p>{serverError}</p> : null}
 
             {/* Username Field */}

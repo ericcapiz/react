@@ -54,14 +54,10 @@ Form {
     font-weight: bold;
 }
 
-.newTicketForm {
-    text-align: center;
-    margin-top: 5%;
-}
-
 .newTicketFormGroup {
     margin-left: 10%;
     margin-top: 5%;
+    text-align: center;
 }
 
 .dropDownNewTicket {
