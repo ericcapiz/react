@@ -33,8 +33,6 @@ span{
     color: red;
     padding: 0 15px;
 }
-
-
 `;
 
 const HelperNav =()=>{
