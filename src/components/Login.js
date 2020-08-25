@@ -9,10 +9,9 @@ import {
   Input,
   NavLink,
   Container,
-  Col,
-  FormFeedback,
+  Col
 } from "reactstrap";
-import { useHistory, Route } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./Login.css";
 import StudentNav from "../components/students/StudentNav";
 
@@ -29,10 +28,10 @@ const Login = (props) => {
     history.push("/register");
   };
 
-  const goStudentDashboard = () => {
-    console.log("Going to student dashboard");
-    history.push("/student_dashboard");
-  };
+  // const goStudentDashboard = () => {
+  //   console.log("Going to student dashboard");
+  //   history.push("/student_dashboard");
+  // };
 
   //Set the state for user
   const [user, setUser] = useState({ username: "", password: "" });
@@ -74,11 +73,12 @@ const Login = (props) => {
 
   //Handle user input changes for login
   const handleChanges = (e) => {
-    e.persist();
-    console.log("new input here!", e.target.value);
-    const newUser = { ...user, [e.target.name]: e.target.value };
-    validateChange(e);
-    setUser(newUser);
+    // e.persist();
+    // console.log("new input here!", e.target.value);
+    setUser({ ...user, 
+      [e.target.name]: e.target.value });
+    // validateChange(e);
+    // setUser(newUser);
   };
 
   //Submit form function for login
@@ -87,9 +87,11 @@ const Login = (props) => {
     console.log("Form submitted!");
 
     axios
-      .post("https://reqres.in/api/users", user) //Temporary API
+      .post("https://react-iota.vercel.app/login", user) //Temporary API
       .then((response) => {
         console.log("POST is successful!", response.data);
+        window.localStorage.setItem('token', response.data.payload)
+        props.history.push('/student_dashboard')
         setServerError(null);
         setUser({ Username: "", Password: "" }); //Clear the form
       })
@@ -164,7 +166,7 @@ const Login = (props) => {
             <Button
               type="submit"
               disabled={button}
-              onClick={goStudentDashboard}
+              onClick={submitForm}
               className="buttonForm"
               style={{ backgroundColor: "#74CBC1" }}
             >
