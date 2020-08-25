@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import HelperDash from "./components/Helper/HelperDashboard";
+import HelperDashboard from "./components/Helper/HelperDashboard";
 import HelperTickets from "./components/Helper/HelperTickets";
 import PrivateRoute from "./components/utils/PrivateRoute";
 import StudentDashboard from "./components/students/StudentDashboard";
@@ -14,11 +14,15 @@ function App() {
     <Router>
       <div>
         <Switch>
+          <PrivateRoute path="/helper_dashboard" component={HelperDashboard} />
+          <PrivateRoute
+            path="/student_dashboard"
+            component={StudentDashboard}
+          />
+          <Route path="/register" component={Register} />
           <Route exact path="/helpertickets">
             <HelperTickets />
           </Route>
-
-          <PrivateRoute exact path="/helper_dashboard" component={HelperDash} />
           <PrivateRoute
             exact
             path="/student_dashboard"
