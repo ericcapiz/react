@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from "axios";
-import { Button, Form, FormGroup, Label, Input, NavLink, Container, Col, FormFeedback } from "reactstrap";
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  NavLink,
+  Container,
+  Col,
+  FormFeedback,
+} from "reactstrap";
 import { useHistory, Route } from "react-router-dom";
 import "./Login.css";
+import StudentNav from "../components/students/StudentNav";
 
 const Login = (props) => {
   const history = useHistory();
@@ -96,65 +107,80 @@ const Login = (props) => {
 
   return (
     <div>
-      <NavLink className="home" onClick={goHome}>Home</NavLink>
+      <NavLink className="home" onClick={goHome}>
+        Home
+      </NavLink>
 
+      <StudentNav />
       <div className="login">
+        <h3>We're here to help.</h3>
+        <p>
+          Create a help ticket and we'll connect you <br></br> with a Lambda
+          School Helper.
+        </p>
 
-      <h3>We're here to help.</h3>
-      <p>Create a help ticket and we'll connect you <br></br> with a Lambda School Helper.</p>
+        <Container className="form">
+          <Form onSubmit={submitForm}>
+            {serverError ? <p>{serverError}</p> : null}
 
-      <Container className="form">
-      <Form onSubmit={submitForm}>
-        {serverError ? <p>{serverError}</p> : null}
+            {/* Username Field */}
+            <Col>
+              <FormGroup className="username">
+                <Label htmlFor="username" xs={4}>
+                  <Input
+                    type="text"
+                    name="username"
+                    id="username"
+                    placeholder="Username"
+                    value={user.username}
+                    onChange={handleChanges}
+                  ></Input>
+                  {errors.username.length > 0 ? (
+                    <p className="error">{errors.username}</p>
+                  ) : null}
+                </Label>
+              </FormGroup>
+            </Col>
 
-        {/* Username Field */}
-        <Col>
-        <FormGroup className="username" >
-          <Label htmlFor="username" xs={4}>
-            <Input 
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Username"
-              value={user.username}
-              onChange={handleChanges}
-            ></Input>
-            {errors.username.length > 0 ? <p className="error">{errors.username}</p> : null}
-          </Label>
-        </FormGroup>
-        </Col>
+            {/* Password Field */}
+            <Col>
+              <FormGroup>
+                <Label htmlFor="password" xs={4}>
+                  <Input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Password"
+                    value={user.password}
+                    onChange={handleChanges}
+                  ></Input>
+                  {errors.password.length > 0 ? (
+                    <p className="error">{errors.password}</p>
+                  ) : null}
+                </Label>
+              </FormGroup>
+            </Col>
 
-        {/* Password Field */}
-        <Col>
-        <FormGroup >
-          <Label htmlFor="password" xs={4} >
-            <Input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              value={user.password}
-              onChange={handleChanges}
-            ></Input>
-            {errors.password.length > 0 ? <p className="error">{errors.password}</p> : null}
-          </Label>
-        </FormGroup>
-        </Col>
+            <Button
+              type="submit"
+              disabled={button}
+              onClick={goStudentDashboard}
+              className="buttonForm"
+              style={{ backgroundColor: "#74CBC1" }}
+            >
+              Login
+            </Button>
+          </Form>
+        </Container>
 
-        <Button type="submit" disabled={button} onClick={goStudentDashboard} className="buttonForm" style={{backgroundColor: "#74CBC1"}}>
-          Login
-        </Button>
-      </Form>
-      </Container>
-
-      {/* If user hasn't registered, they would click the Register button instead and go to Eric's Register page*/}
-      <div className="navRegister">
-      <NavLink className="nonClick">Haven't registered? </NavLink>
-      <NavLink onClick={goRegister} className="click">Click here</NavLink>
+        {/* If user hasn't registered, they would click the Register button instead and go to Eric's Register page*/}
+        <div className="navRegister">
+          <NavLink className="nonClick">Haven't registered? </NavLink>
+          <NavLink onClick={goRegister} className="click">
+            Click here
+          </NavLink>
+        </div>
       </div>
-
-     </div>
-
     </div>
   );
 };
