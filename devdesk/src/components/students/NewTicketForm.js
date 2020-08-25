@@ -1,12 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { connect } from "react-redux"
+import { addNewTicket } from '../actions/actions'
 
-const NewTicketForm = () => {
+const NewTicketForm = props => {
+
+    const [ newTicket, setNewTicket ] = useState({title: '', description:'', effort:''})
+
+    const submitNewTicket = e => {
+        console.log('submitted!')
+        e.preventDefault()
+        props.addNewTicket(newTicket)
+    }
+
+    const handleChanges = e => {
+        setNewTicket({...newTicket, [e.target.name]: e.target.value})
+    }
 
     return (
 
 
-        <Form  >
+        <Form onSubmit={submitNewTicket}>
 
             <FormGroup>
             <Label htmlFor="title">
@@ -15,6 +29,8 @@ const NewTicketForm = () => {
                     id = "title"
                     type = "text"
                     name = "title"
+                    value = {newTicket.title}
+                    onChange = {handleChanges}
                     placeholder = "Title goes here"
                     />
    
@@ -28,6 +44,8 @@ const NewTicketForm = () => {
                     id = "description"
                     type = "text"
                     name = "description"
+                    value = {newTicket.description}
+                    onChange = {handleChanges}
                     placeholder = "Describe your problem"
                     />
 
@@ -41,6 +59,8 @@ const NewTicketForm = () => {
                     id = "effort"
                     type = "text"
                     name = "effort"
+                    value = {newTicket.effort}
+                    onChange = {handleChanges}
                     placeholder = "What have you tried doing?"
          
                     />
@@ -64,7 +84,7 @@ const NewTicketForm = () => {
             </Label>
             </FormGroup>
 
-            <Button type = "submit" >
+            <Button type = "submit" onClick={submitNewTicket}>
                 Submit Ticket
             </Button>
 
@@ -77,4 +97,16 @@ const NewTicketForm = () => {
 
 }
 
-export default NewTicketForm
+const mapsStateToProps = state => {
+    return {
+        tickets: state.tickets,
+        title: state.title,
+        description: state.description,
+        effort: state.effort
+    }
+}
+
+export default connect(
+    mapsStateToProps,
+    { addNewTicket }
+    )(NewTicketForm)

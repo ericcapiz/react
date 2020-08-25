@@ -20,7 +20,7 @@ const Login = (props) => {
 
   const goStudentDashboard = () => {
     console.log("Going to student dashboard");
-    history.push("/studentdashboard");
+    history.push("/student_dashboard");
   };
 
   //Set the state for user
