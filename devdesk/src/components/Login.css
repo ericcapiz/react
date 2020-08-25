@@ -1,0 +1,48 @@
+.home {
+    text-align: center;
+    margin-top: 2.5%;
+    cursor: pointer;
+}
+
+.login {
+    text-align: center;
+    margin-top: 5%;
+}
+
+.form {
+    margin-top: 2.5%;
+}
+
+.buttonForm {
+    margin-top: 5%;
+    width: 30%;
+}
+
+.navRegister {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    margin-top: 3%;
+}
+
+.nonClick {
+    color: black;
+}
+
+.click {
+    text-decoration: underline;
+    cursor: pointer;
+   
+}
+
+/* .click :hover {
+    text-decoration: underline;
+} */
+
+.error {
+    color: red;
+    font-size: 0.75rem;
+    text-align: left;
+    margin-top: 2.5%;
+}
