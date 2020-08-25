@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
-import { Form, FormGroup, Label, Input } from 'reactstrap';
 import "./StudentDashboard.css";
+import Search from './Search';
 
 const StudentNav = () => {
 
     const [collapsed, setCollapsed] = useState(true);
 
     const toggleNavbar = () => setCollapsed(!collapsed);
+
 
     return(
 
@@ -16,14 +17,7 @@ const StudentNav = () => {
           <NavbarBrand href="/" className="mr-auto" style={{fontFamily: "Roboto Mono , serif"}}>Dev Desk</NavbarBrand>
 
           <i className="fa fa-search"></i>
-          <div>
-          <Form>
-          <FormGroup>
-        <Label for="searchBar"></Label>
-        <Input type="text" name="searchBar" id="searchBar" placeholder="Search" />
-        </FormGroup>
-        </Form>
-        </div>
+          <Search />
 
           <NavbarToggler onClick={toggleNavbar} className="mr-2" />
           <Collapse isOpen={!collapsed} navbar>
