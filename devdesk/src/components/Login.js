@@ -159,6 +159,14 @@ const Login = (props) => {
               </FormGroup>
             </Col>
 
+            <FormGroup check>
+        <Label check>
+          <Input type="checkbox" /> Remember me
+        </Label>
+      </FormGroup>
+
+      <NavLink>Forgot username/password?</NavLink>
+
             <Button
               type="submit"
               disabled={button}
