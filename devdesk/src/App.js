@@ -1,24 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import HelperDash from "./components/Helper/HelperDashboard";
 import HelperTickets from "./components/Helper/HelperTickets";
-import StudentDashboard from "./components/StudentDashboard";
 import PrivateRoute from "./components/utils/PrivateRoute";
+import StudentDashboard from "./components/students/StudentDashboard";
+import NewTicketForm from "./components/students/NewTicketForm";
 
 function App() {
   return (
     <Router>
       <div>
         <Switch>
-     <Route exact path="/helpertickets"><HelperTickets /></Route>
-     <Route exact path = "/helperdash">
-     <HelperDash />
-     </Route>
+          <Route exact path="/helpertickets">
+            <HelperTickets />
+          </Route>
+
+          <PrivateRoute exact path="/helper_dashboard" component={HelperDash} />
+          <PrivateRoute
+            exact
+            path="/student_dashboard"
+            component={StudentDashboard}
+          />
+          <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/" />
+          <Route exact path="/newticketform" component={NewTicketForm} />
         </Switch>
       </div>
     </Router>
