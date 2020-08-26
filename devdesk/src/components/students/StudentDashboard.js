@@ -5,12 +5,13 @@ import "./StudentDashboard.css";
 import StudentNav from "./StudentNav";
 
 const StudentDashboard = () => {
-  const history = useHistory();
 
-  const goNewTicketForm = () => {
-    console.log("Going to new ticket form");
-    history.push("/new_ticket_form");
-  };
+  // const history = useHistory();
+
+  // const goNewTicketForm = () => {
+  //   console.log("Going to new ticket form");
+  //   history.push("/new_ticket_form");
+  // };
 
   return (
     <div>

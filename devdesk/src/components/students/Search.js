@@ -4,6 +4,7 @@ import { Form, FormGroup, Label, Input } from "reactstrap";
 import "./StudentDashboard.css";
 
 const Search = () => {
+ 
   // const [searchTerm, setSearchTerm] = useState("");
 
   // const [searchResults, setSearchResults] = useState(dummyData)
@@ -11,7 +12,7 @@ const Search = () => {
   // useEffect(() => {
 
   //   const results = dummyData.filter((item) => {
-  //     return item.ticketNumber.toLowerCase().includes(searchTerm.toLowerCase()) || item.title.toLowerCase().includes(searchTerm.toLowerCase())
+  //     return item.toLowerCase().includes(searchTerm.toLowerCase()) || item.toLowerCase().includes(searchTerm.toLowerCase())
 
   //   });
 
@@ -32,11 +33,18 @@ const Search = () => {
             name="searchBar"
             id="searchBar"
             placeholder="Search"
-            //   onChange={handleChange}
-            //   value={searchTerm}
+              // onChange={handleChange}
+              // value={searchTerm}
           />
         </FormGroup>
       </Form>
+      {/* <div>
+      <ul>
+          {searchResults.map((item) => (
+            <li key={item.ticketNumber}>{item.ticketNumber}</li>
+          ))}
+        </ul>
+      </div> */}
     </div>
   );
 };

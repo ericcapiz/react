@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from "axios";
+import { axiosAuth } from "./utils/axiosAuth";
 import {
   Button,
   Form,
@@ -11,6 +12,7 @@ import {
   Container,
   Col,
   FormFeedback,
+  Spinner,
 } from "reactstrap";
 import { useHistory, Route } from "react-router-dom";
 import "./Login.css";
@@ -29,16 +31,16 @@ const Login = (props) => {
     history.push("/register");
   };
 
-  const goStudentDashboard = () => {
-    console.log("Going to student dashboard");
-    history.push("/student_dashboard");
-  };
+  // const goStudentDashboard = () => {
+  //   console.log("Going to student dashboard");
+  //   history.push("/student_dashboard");
+  // };
 
   //Set the state for user
-  const [user, setUser] = useState({ username: "", password: "" });
+  const [user, setUser] = useState({ email: "", password: "" });
 
   //Set the state for error
-  const [errors, setErrors] = useState({ username: "", password: "" });
+  const [errors, setErrors] = useState({ email: "", password: "" });
 
   //Set the state for server error
   const [serverError, setServerError] = useState("");
@@ -48,14 +50,14 @@ const Login = (props) => {
 
   //Form schema for login
   const formSchema = yup.object().shape({
-    username: yup.string().required("Name is required"),
+    username: yup.string().required("Email is required"),
     password: yup
       .string()
       .required("Password is required")
-      .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one Special Case Character"
-      ),
+      // .matches(
+      //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      //   "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one Special Case Character"
+      // ),
   });
 
   //Form validation function for login
@@ -81,23 +83,26 @@ const Login = (props) => {
   //Handle user input changes for login
   const handleChanges = (e) => {
     e.persist();
-    console.log("new input here!", e.target.value);
-    const newUser = { ...user, [e.target.name]: e.target.value };
-    validateChange(e);
-    setUser(newUser);
+    // console.log("new input here!", e.target.value);
+    // const newUser = { ...user, [e.target.name]: e.target.value };
+    // validateChange(e);
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   //Submit form function for login
   const submitForm = (e) => {
     e.preventDefault();
     console.log("Form submitted!");
+    console.log(user);
 
-    axios
-      .post("https://reqres.in/api/users", user) //Temporary API
+    axiosAuth()
+      .post("/api/auth/login", user) 
       .then((response) => {
         console.log("POST is successful!", response.data);
+        window.localStorage.setItem("token", response.data.token);
+        props.history.push("/student_dashboard");
         setServerError(null);
-        setUser({ username: "", password: "", rememberMe: "" }); //Clear the form
+        setUser({ email: "", password: ""}); //Clear the form
       })
       .catch((err) => {
         setServerError("API POST request failed!");
@@ -107,9 +112,11 @@ const Login = (props) => {
   //If everything checks, then button is enabled
   useEffect(() => {
     formSchema.isValid(user).then((isValid) => {
-      setButton(!isValid);
+      // setButton(!isValid);
     });
   }, [user]);
+
+  if (!user) return <Spinner color="info" />;
 
   return (
     <div>
@@ -128,17 +135,17 @@ const Login = (props) => {
             {/* Username Field */}
             <Col>
               <FormGroup className="username">
-                <Label htmlFor="username" xs={4}>
+                <Label htmlFor="email" xs={4}>
                   <Input
                     type="text"
-                    name="username"
-                    id="username"
-                    placeholder="Username"
-                    value={user.username}
+                    name="email"
+                    id="email"
+                    placeholder="Email"
+                    value={user.email}
                     onChange={handleChanges}
                   ></Input>
-                  {errors.username.length > 0 ? (
-                    <p className="error">{errors.username}</p>
+                  {errors.email.length > 0 ? (
+                    <p className="error">{errors.email}</p>
                   ) : null}
                 </Label>
               </FormGroup>
@@ -173,8 +180,8 @@ const Login = (props) => {
 
             <Button
               type="submit"
-              disabled={button}
-              onClick={goStudentDashboard}
+              // disabled={button}
+              // onClick={goStudentDashboard}
               className="buttonForm"
               style={{ backgroundColor: "#74CBC1" }}
             >

@@ -35,6 +35,9 @@ function App() {
           <Route exact path="/" />
           <Route exact path="/new_ticket_form" component={NewTicketForm} />
           <Route exact path="/student_dashboard" component={StudentDashboard} />
+          <Route path="/student_dashboard/:id" >
+            <StudentDashboard />
+          </Route>
         </Switch>
       </div>
     </Router>

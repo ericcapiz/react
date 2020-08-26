@@ -15,13 +15,13 @@ const Ticket = ({ ticket }) => {
     <div>
       <Card className="card">
         <CardBody>
-          <CardSubtitle>Ticket #: {ticket.ticketNumber}</CardSubtitle>
+          <CardSubtitle>Ticket #: {ticket.ticket_id}</CardSubtitle>
           <CardSubtitle className="ticket">
-            Category: {ticket.category}
+            Category: {ticket.categories}
           </CardSubtitle>
           <CardTitle className="ticketTitle">Title: {ticket.title}</CardTitle>
           <CardText>Description: {ticket.description}</CardText>
-          <CardText>What I've Tried: {ticket.effort}</CardText>
+          {/* <CardText>What I've Tried: {ticket.what_ive_tried}</CardText> */}
           <Button
             style={{
               backgroundColor: "#0066cc",

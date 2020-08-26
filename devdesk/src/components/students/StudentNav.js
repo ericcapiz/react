@@ -18,21 +18,21 @@ const StudentNav = () => {
 
   return (
     <div>
-      <Navbar color="faded" light>
+      <Navbar color="faded" light >
         <NavbarBrand
           href="/"
           className="mr-auto"
-          style={{ fontFamily: "Roboto Mono , serif" }}
+          style={{ fontFamily: "Roboto Mono , serif", fontSize: "2rem", fontWeight: "bolder", color: "#74CBC1" }}
         >
           Dev Desk
         </NavbarBrand>
 
-        <i className="fa fa-search"></i>
+        <i className="fa fa-search" style={{color: "#74CBC1"}}></i>
         <Search />
 
         <NavbarToggler onClick={toggleNavbar} className="mr-2" />
         <Collapse isOpen={!collapsed} navbar>
-          <Nav navbar>
+          <Nav navbar style={{cursor: "pointer"}}>
             <NavItem>
               <NavLink href="/new_ticket_form/">Create a new ticket</NavLink>
             </NavItem>
