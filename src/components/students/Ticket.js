@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Card,
   CardImg,
@@ -10,19 +10,26 @@ import {
 } from "reactstrap";
 import "./StudentDashboard.css";
 
-const Ticket = ({ ticket }) => {
+const Ticket = props => {
+
+  useEffect(() => {
+    console.log(props.tickets)
+  }, [])
+
   return (
-    <div>
+    <div>{props.tickets.status !="RESOLVED" ? 
+      <>
       <Card className="card">
         <CardBody>
-          <CardSubtitle>Ticket #: {ticket.ticket_id}</CardSubtitle>
+          <CardSubtitle>Ticket #: {props.tickets.ticket_id}</CardSubtitle>
           <CardSubtitle className="ticket">
-            Category: {ticket.categories}
+            Category: {props.tickets.categories}
           </CardSubtitle>
-          <CardTitle className="ticketTitle">Title: {ticket.title}</CardTitle>
-          <CardText>Description: {ticket.description}</CardText>
+          <CardTitle className="ticketTitle">Title: {props.tickets.title}</CardTitle>
+          <CardText>Description: {props.tickets.description}</CardText>
           {/* <CardText>What I've Tried: {ticket.what_ive_tried}</CardText> */}
-          <Button
+          <Button 
+            onClick={() => console.log('hi')}
             style={{
               backgroundColor: "#0066cc",
               marginRight: "10px",
@@ -51,8 +58,10 @@ const Ticket = ({ ticket }) => {
           </Button>
         </CardBody>
       </Card>
+      </>:''}
     </div>
   );
 };
 
-export default Ticket;
+
+export default Ticket
