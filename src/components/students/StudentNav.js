@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import "./StudentDashboard.css";
+import Search from './Search';
 
 const StudentNav = () => {
 
@@ -13,17 +14,10 @@ const StudentNav = () => {
 
         <div>
         <Navbar color="faded" light>
-          <NavbarBrand href="/" className="mr-auto" style={{fontFamily: "Roboto Mono , serif"}}>Dev Desk</NavbarBrand>
+          <NavbarBrand href="/" className="mr-auto"  style={{ fontFamily: "Roboto Mono , serif", fontSize: "2rem", fontWeight: "bolder", color: "#74CBC1" }}>Dev Desk</NavbarBrand>
 
-          <i className="fa fa-search"></i>
-          <div>
-          <Form>
-          <FormGroup>
-        <Label for="searchBar"></Label>
-        <Input type="text" name="searchBar" id="searchBar" placeholder="Search" />
-        </FormGroup>
-        </Form>
-        </div>
+          <i className="fa fa-search" style={{color: "#74CBC1"}}></i>
+        <Search />
 
           <NavbarToggler onClick={toggleNavbar} className="mr-2" />
           <Collapse isOpen={!collapsed} navbar>
