@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import data from './HelperData';
+// import data from './HelperData';
 import styled from 'styled-components';
+import {axiosAuth }from '../utils/axiosAuth'
 
 const TicketDiv = styled.div `
-    background-color: pink;
+    background-color: #0066cc;
+    
     // display: flex;
     // flex-direction: column;
     // align-items:center;
@@ -14,16 +16,29 @@ const TicketDiv = styled.div `
 const StudentTicket = ()=>{
     const [studentTick, setStudentTick]= useState([]);
     useEffect(()=>{
-        setStudentTick(data)
-    },[])
+        const getTix = ()=>{
+            axiosAuth()
+            .get('/api/tickets')
+            .then(res=>{
+                console.log(res)
+                setStudentTick(res.data);
+                
+            })
+            .catch(error => {
+                console.error('Error', error);
+              });
+        }
+        getTix();
+    },[]);
+
     return (
         <div>
             {studentTick.map((item)=>(
              <TicketDiv>   
            <h2>{item.title}</h2>
            <p>Description: {item.description}</p>
-           <p>Category: {item.category}</p>
-           <p>Attempt to solve: {item.solutionsTried}</p>
+           <p>Category: {item.categories}</p>
+           <p>Attempt to solve: {item.what_ive_tried}</p>
            <p>Ticket assigned to: {item.ticketAssigned}</p>
            </TicketDiv>
            ))}
