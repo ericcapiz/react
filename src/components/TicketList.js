@@ -1,21 +1,17 @@
-import React, { useState } from 'react'
-import dummyData from './students/dummyData';
-import Ticket from '../components/students/Ticket';
+import React, { useState } from "react";
+import dummyData from "./students/dummyData";
+import Ticket from "../components/students/Ticket";
 
-const TicketList = props => {
+const TicketList = (props) => {
+  // const [tickets, setTickets] = useState(dummyData);
 
-    //const [tickets, setTickets] = useState(dummyData);
-
-    return (
-        <div>
-
-      {props.tickets.map(ticket => {
-        return <Ticket key={ticket.ticketNumber} ticket={ticket}/>
+  return (
+    <div>
+      {props.tickets?.map((ticket) => {
+        return <Ticket key={ticket.ticketNumber} ticket={ticket} />;
       })}
+    </div>
+  );
+};
 
-        </div>
-
-    )
-}
-
-export default TicketList
+export default TicketList;

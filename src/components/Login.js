@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
-import axios from "axios";
+import { axiosAuth } from "./utils/axiosAuth";
 import {
   Button,
   Form,
@@ -10,9 +10,8 @@ import {
   NavLink,
   Container,
   Col,
-  FormFeedback,
 } from "reactstrap";
-import { useHistory, Route } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./Login.css";
 import StudentNav from "../components/students/StudentNav";
 
@@ -29,16 +28,16 @@ const Login = (props) => {
     history.push("/register");
   };
 
-  const goStudentDashboard = () => {
-    console.log("Going to student dashboard");
-    history.push("/student_dashboard");
-  };
+  // const goStudentDashboard = () => {
+  //   console.log("Going to student dashboard");
+  //   history.push("/student_dashboard");
+  // };
 
   //Set the state for user
-  const [user, setUser] = useState({ username: "", password: "" });
+  const [user, setUser] = useState({ email: "", password: "" });
 
   //Set the state for error
-  const [errors, setErrors] = useState({ username: "", password: "" });
+  const [errors, setErrors] = useState({ email: "", password: "" });
 
   //Set the state for server error
   const [serverError, setServerError] = useState("");
@@ -48,7 +47,7 @@ const Login = (props) => {
 
   //Form schema for login
   const formSchema = yup.object().shape({
-    username: yup.string().required("Name is required"),
+    email: yup.string().required("Name is required"),
     password: yup.string().required("Password is required"),
   });
 
@@ -74,24 +73,27 @@ const Login = (props) => {
 
   //Handle user input changes for login
   const handleChanges = (e) => {
-    e.persist();
-    console.log("new input here!", e.target.value);
-    const newUser = { ...user, [e.target.name]: e.target.value };
-    validateChange(e);
-    setUser(newUser);
+    // e.persist();
+    // console.log("new input here!", e.target.value);
+    setUser({ ...user, [e.target.name]: e.target.value });
+    // validateChange(e);
+    // setUser(newUser);
   };
 
   //Submit form function for login
   const submitForm = (e) => {
     e.preventDefault();
     console.log("Form submitted!");
+    console.log(user);
 
-    axios
-      .post("https://reqres.in/api/users", user) //Temporary API
+    axiosAuth()
+      .post("/api/auth/login", user) //Temporary API
       .then((response) => {
         console.log("POST is successful!", response.data);
+        window.localStorage.setItem("token", response.data.token);
+        props.history.push("/student_dashboard");
         setServerError(null);
-        setUser({ Username: "", Password: "" }); //Clear the form
+        setUser({ email: "", Password: "" }); //Clear the form
       })
       .catch((err) => {
         setServerError("API POST request failed!");
@@ -123,20 +125,20 @@ const Login = (props) => {
           <Form onSubmit={submitForm}>
             {serverError ? <p>{serverError}</p> : null}
 
-            {/* Username Field */}
+            {/* email Field */}
             <Col>
-              <FormGroup className="username">
-                <Label htmlFor="username" xs={4}>
+              <FormGroup className="email">
+                <Label htmlFor="email" xs={4}>
                   <Input
                     type="text"
-                    name="username"
-                    id="username"
-                    placeholder="Username"
-                    value={user.username}
+                    name="email"
+                    id="email"
+                    placeholder="email"
+                    value={user.email}
                     onChange={handleChanges}
                   ></Input>
-                  {errors.username.length > 0 ? (
-                    <p className="error">{errors.username}</p>
+                  {errors.email.length > 0 ? (
+                    <p className="error">{errors.email}</p>
                   ) : null}
                 </Label>
               </FormGroup>
@@ -164,7 +166,7 @@ const Login = (props) => {
             <Button
               type="submit"
               disabled={button}
-              onClick={goStudentDashboard}
+              onClick={submitForm}
               className="buttonForm"
               style={{ backgroundColor: "#74CBC1" }}
             >
