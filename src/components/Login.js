@@ -109,10 +109,6 @@ const Login = (props) => {
 
   return (
     <div>
-      <NavLink className="home" onClick={goHome}>
-        Home
-      </NavLink>
-
       <StudentNav />
       <div className="login">
         <h3>We're here to help.</h3>
