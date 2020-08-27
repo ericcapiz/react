@@ -36,7 +36,7 @@ export const addNewTicket = (tickets) => dispatch => {
     })
 }
 
-export const login = (user) => dispatch => {
-    console.log('login', dispatch)
-    dispatch()
-}
+// export const login = (user) => dispatch => {
+//     console.log('login', dispatch)
+//     dispatch()
+// }

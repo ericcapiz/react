@@ -6,7 +6,7 @@ import {
     SET_NEW_TICKET } 
     from "../actions/actions";
 
-const initialState = {
+export const initialState = {
     tickets: [],
     user: {},
     isFetching: false,

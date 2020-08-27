@@ -27,7 +27,7 @@ const Ticket = props => {
           </CardSubtitle>
           <CardTitle className="ticketTitle">Title: {props.tickets.title}</CardTitle>
           <CardText>Description: {props.tickets.description}</CardText>
-          {/* <CardText>What I've Tried: {ticket.what_ive_tried}</CardText> */}
+          <CardText>What I've Tried: {props.tickets.what_ive_tried}</CardText>
           <Button 
             onClick={() => console.log('hi')}
             style={{
