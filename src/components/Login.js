@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from "axios";
-import { axiosAuth } from "./utils/axiosAuth";
 import {
   Button,
   Form,
@@ -11,20 +10,19 @@ import {
   NavLink,
   Container,
   Col,
-  FormFeedback,
   Spinner,
 } from "reactstrap";
-import { useHistory, Route } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./Login.css";
 import StudentNav from "./students/StudentNav";
 
 const Login = (props) => {
   const history = useHistory();
 
-  const goHome = () => {
-    console.log("Going home");
-    history.push("/");
-  };
+  // const goHome = () => {
+  //   console.log("Going home");
+  //   history.push("/");
+  // };
 
   const goRegister = () => {
     console.log("Going to register");
@@ -95,8 +93,8 @@ const Login = (props) => {
     console.log("Form submitted!");
     console.log(user);
 
-    axiosAuth()
-      .post("/api/auth/login", user) 
+    axios
+      .post("https://devdeskqueue3-pt.herokuapp.com/api/auth/login", user) 
       .then((response) => {
         console.log("POST is successful!", response.data);
         window.localStorage.setItem("token", response.data.token);

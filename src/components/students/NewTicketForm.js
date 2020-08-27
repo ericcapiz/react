@@ -9,7 +9,8 @@ const NewTicketForm = (props) => {
   const [newTicket, setNewTicket] = useState({
     title: "",
     description: "",
-    effort: "",
+    what_ive_tried: "",
+
   });
 
   const submitNewTicket = (e) => {
@@ -54,12 +55,12 @@ const NewTicketForm = (props) => {
         </FormGroup>
 
         <FormGroup>
-          <Label htmlFor="effort" xs={4}>
+          <Label htmlFor="what_ive_tried" xs={4}>
             <Input
-              id="effort"
+              id="what_ive_tried"
               type="text"
-              name="effort"
-              value={newTicket.effort}
+              name="what_ive_tried"
+              value={newTicket.what_ive_tried}
               onChange={handleChanges}
               placeholder="What have you tried doing?"
             />
@@ -68,7 +69,7 @@ const NewTicketForm = (props) => {
 
         <FormGroup>
           <Label htmlFor="category" className="dropDownNewTicket">
-            <select id="category" name="category">
+            <select id="category" name="category" type="text" value={newTicket.categories} onChange={handleChanges}>
               <option>Pick a category</option>
               <option value="React">React</option>
               <option value="Back End">Back End</option>
@@ -89,10 +90,13 @@ const NewTicketForm = (props) => {
 const mapsStateToProps = (state) => {
   return {
     tickets: state.tickets,
-    title: state.title,
-    description: state.description,
-    effort: state.effort,
+    user: state.user,
+    isFetching: state.isFetching,
+    error: state.error
   };
 };
 
-export default connect(mapsStateToProps, { addNewTicket })(NewTicketForm);
+export default connect(
+  mapsStateToProps, 
+  { addNewTicket }
+  )(NewTicketForm);
