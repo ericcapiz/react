@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import * as yup from 'yup';
+import {axiosAuth }from './utils/axiosAuth';
 import axios from 'axios';
 import styled from 'styled-components';
 import HelperNav from './Helper/HelperNav';
@@ -19,7 +20,6 @@ const FormCont = styled.form`
     justify-content: center;
     position: relative;
     border: 3px solid lightblue;
-    width: 400px;
     padding: 50px;
 
     label{
@@ -77,6 +77,7 @@ const Register =()=>{
         password: "",
         helper:false,
         student:false,
+        both: false,
       });
 
       const [errors, setErrors]=useState({
@@ -107,7 +108,8 @@ const Register =()=>{
             /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
             "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"),
         helper: yup.boolean(),
-        student: yup.boolean()
+        student: yup.boolean(),
+        both: yup.boolean(),
     });
 
     const validateChange = (e) => {
@@ -146,11 +148,14 @@ const Register =()=>{
         setNewReg(newSetUp);
       };
 
+
       const formSubmit = (e) => {
         e.preventDefault(); 
       
+        // axiosAuth()
+        //   .post("/api/auth/register", newReg)
         axios
-          .post("https://reqres.in/api/users", newReg)
+        .post("https://reqres.in/api/users", newReg)
           .then((res) => {
             
             setNewReg({
@@ -162,6 +167,7 @@ const Register =()=>{
                 password: "",
                 helper:false,
                 student:false,
+                both: false,
               
             });
           })
@@ -192,7 +198,7 @@ const Register =()=>{
           {errors.lname.length > 0 ? <ErrorMsg>{errors.lname}</ErrorMsg> : null}
             </label>
             <label htmlFor="phone">
-                Contact Number:
+                Number:
                 <input type="text" id="number" data-cy="number" name="number" placeholder="Contact Number" value={newReg.number}
           onChange={inputChange}/>
           {errors.number.length > 0 ? <ErrorMsg>{errors.number}</ErrorMsg> : null}
@@ -222,9 +228,11 @@ const Register =()=>{
             <label htmlFor="role">
                Primary Role: 
                <span> <input type="checkbox" id="helper" data-cy="helper" name="helper" value={newReg.helper}
-          onChange={inputChange}/> Helper</span>
+          onChange={inputChange}/> HELPER</span>
                <span></span> <input type="checkbox" id="student" data-cy="student" name="student" value={newReg.student}
-          onChange={inputChange}/><span> Student</span>
+          onChange={inputChange}/><span> STUDENT</span>
+           <span></span> <input type="checkbox" id="both" data-cy="both" name="both" value={newReg.both}
+          onChange={inputChange}/><span> BOTH</span>
             </label>
             <button data-cy="submit" type="submit" disabled={buttonDisabled}>Register</button>
         </FormCont>

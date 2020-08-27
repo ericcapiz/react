@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
 
@@ -40,10 +41,8 @@ const HelperNav =()=>{
         
         <Nav>
             <h4><span>Q</span>Dev Desk</h4>
-            <a href="#">For Students</a>
-            <a href="#">Features</a>
-            <a href="#">Team</a>
-            <a href="#">Login</a>
+            <Link to={`/student_dashboard`}>For Students</Link>
+            <Link to={`/login`}>Login</Link>
         </Nav>
     )
 }

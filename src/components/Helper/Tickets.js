@@ -18,9 +18,8 @@ const StudentTicket = ()=>{
     useEffect(()=>{
         const getTix = ()=>{
             axiosAuth()
-            .get('/api/tickets')
+            .get('/api/tickets?status=OPEN')
             .then(res=>{
-                console.log(res)
                 setStudentTick(res.data);
                 
             })
