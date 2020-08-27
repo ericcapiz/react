@@ -15,13 +15,16 @@ const Ticket = ({ ticket }) => {
     <div>
       <Card className="card">
         <CardBody>
+        <div className="categoryDiv">
           <CardSubtitle>Ticket #: {ticket.ticket_id}</CardSubtitle>
           <CardSubtitle className="ticket">
-            Category: {ticket.categories}
+            {ticket.categories}
           </CardSubtitle>
+          </div>
           <CardTitle className="ticketTitle">Title: {ticket.title}</CardTitle>
           <CardText>Description: {ticket.description}</CardText>
           {/* <CardText>What I've Tried: {ticket.what_ive_tried}</CardText> */}
+          <div className="ticketButtons">
           <Button
             style={{
               backgroundColor: "#0066cc",
@@ -49,6 +52,7 @@ const Ticket = ({ ticket }) => {
           >
             Resolve
           </Button>
+          </div>
         </CardBody>
       </Card>
     </div>

@@ -135,7 +135,7 @@ const Login = (props) => {
             {/* Username Field */}
             <Col>
               <FormGroup className="username">
-                <Label htmlFor="email" xs={4}>
+                <Label htmlFor="email" xl={4} className="label">
                   <Input
                     type="email"
                     name="email"
@@ -154,7 +154,7 @@ const Login = (props) => {
             {/* Password Field */}
             <Col>
               <FormGroup>
-                <Label htmlFor="password" xs={4}>
+                <Label htmlFor="password" xl={4} className="label">
                   <Input
                     type="password"
                     name="password"
