@@ -14,7 +14,7 @@ const StudentNav = () => {
 
         <div>
         <Navbar color="faded" light>
-          <NavbarBrand href="/" className="mr-auto"  style={{ fontFamily: "Roboto Mono , serif", fontSize: "2rem", fontWeight: "bolder", color: "#74CBC1" }}>Dev Desk</NavbarBrand>
+          <NavbarBrand href="https://reachoutdevdesk.netlify.app/" className="mr-auto"  style={{ fontFamily: "Roboto Mono , serif", fontSize: "2rem", fontWeight: "bolder", color: "#74CBC1" }}>Dev Desk</NavbarBrand>
 
           <i className="fa fa-search" style={{color: "#74CBC1"}}></i>
         <Search />

@@ -21,10 +21,10 @@ import StudentNav from "./students/StudentNav";
 const Login = (props) => {
   const history = useHistory();
 
-  const goHome = () => {
-    console.log("Going home");
-    history.push("/");
-  };
+  // const goHome = () => {
+  //   console.log("Going home");
+  //   history.push("/");
+  // };
 
   const goRegister = () => {
     console.log("Going to register");
@@ -50,7 +50,7 @@ const Login = (props) => {
 
   //Form schema for login
   const formSchema = yup.object().shape({
-    username: yup.string().required("Email is required"),
+    email: yup.string().email("Must contain @ and .com").required("Email is required"),
     password: yup
       .string()
       .required("Password is required")
@@ -85,7 +85,7 @@ const Login = (props) => {
     e.persist();
     // console.log("new input here!", e.target.value);
     // const newUser = { ...user, [e.target.name]: e.target.value };
-    // validateChange(e);
+    validateChange(e);
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
@@ -101,18 +101,18 @@ const Login = (props) => {
         console.log("POST is successful!", response.data);
         window.localStorage.setItem("token", response.data.token);
         props.history.push("/student_dashboard");
-        setServerError(null);
-        setUser({ email: "", password: ""}); //Clear the form
+        // setServerError(null);
+        // setUser({ email: "", password: ""}); //Clear the form
       })
       .catch((err) => {
-        setServerError("API POST request failed!");
+        setServerError("You don't have an account with us yet. Please register!");
       });
   };
 
   //If everything checks, then button is enabled
   useEffect(() => {
     formSchema.isValid(user).then((isValid) => {
-      // setButton(!isValid);
+      setButton(!isValid);
     });
   }, [user]);
 
@@ -137,7 +137,7 @@ const Login = (props) => {
               <FormGroup className="username">
                 <Label htmlFor="email" xs={4}>
                   <Input
-                    type="text"
+                    type="email"
                     name="email"
                     id="email"
                     placeholder="Email"
@@ -180,7 +180,7 @@ const Login = (props) => {
 
             <Button
               type="submit"
-              // disabled={button}
+              disabled={button}
               // onClick={goStudentDashboard}
               className="buttonForm"
               style={{ backgroundColor: "#74CBC1" }}
