@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
+import axios from "axios";
 import { axiosAuth } from "./utils/axiosAuth";
 import {
   Button,
@@ -10,10 +11,12 @@ import {
   NavLink,
   Container,
   Col,
+  FormFeedback,
+  Spinner,
 } from "reactstrap";
-import { useHistory } from "react-router-dom";
+import { useHistory, Route } from "react-router-dom";
 import "./Login.css";
-import StudentNav from "../components/students/StudentNav";
+import StudentNav from "./students/StudentNav";
 
 const Login = (props) => {
   const history = useHistory();
@@ -47,8 +50,14 @@ const Login = (props) => {
 
   //Form schema for login
   const formSchema = yup.object().shape({
-    email: yup.string().required("Name is required"),
-    password: yup.string().required("Password is required"),
+    username: yup.string().required("Email is required"),
+    password: yup
+      .string()
+      .required("Password is required")
+      // .matches(
+      //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      //   "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one Special Case Character"
+      // ),
   });
 
   //Form validation function for login
@@ -73,11 +82,11 @@ const Login = (props) => {
 
   //Handle user input changes for login
   const handleChanges = (e) => {
-    // e.persist();
+    e.persist();
     // console.log("new input here!", e.target.value);
-    setUser({ ...user, [e.target.name]: e.target.value });
+    // const newUser = { ...user, [e.target.name]: e.target.value };
     // validateChange(e);
-    // setUser(newUser);
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   //Submit form function for login
@@ -87,13 +96,13 @@ const Login = (props) => {
     console.log(user);
 
     axiosAuth()
-      .post("/api/auth/login", user) //Temporary API
+      .post("/api/auth/login", user) 
       .then((response) => {
         console.log("POST is successful!", response.data);
         window.localStorage.setItem("token", response.data.token);
         props.history.push("/student_dashboard");
         setServerError(null);
-        setUser({ email: "", Password: "" }); //Clear the form
+        setUser({ email: "", password: ""}); //Clear the form
       })
       .catch((err) => {
         setServerError("API POST request failed!");
@@ -103,33 +112,35 @@ const Login = (props) => {
   //If everything checks, then button is enabled
   useEffect(() => {
     formSchema.isValid(user).then((isValid) => {
-      setButton(!isValid);
+      // setButton(!isValid);
     });
   }, [user]);
+
+  if (!user) return <Spinner color="info" />;
 
   return (
     <div>
       <StudentNav />
       <div className="login">
-        <h3>We're here to help.</h3>
+        <h2>We're here to help.</h2>
         <p>
           Create a help ticket and we'll connect you <br></br> with a Lambda
           School Helper.
         </p>
 
         <Container className="form">
-          <Form onSubmit={submitForm}>
+          <Form onSubmit={submitForm} className="formGroup">
             {serverError ? <p>{serverError}</p> : null}
 
-            {/* email Field */}
+            {/* Username Field */}
             <Col>
-              <FormGroup className="email">
+              <FormGroup className="username">
                 <Label htmlFor="email" xs={4}>
                   <Input
                     type="text"
                     name="email"
                     id="email"
-                    placeholder="email"
+                    placeholder="Email"
                     value={user.email}
                     onChange={handleChanges}
                   ></Input>
@@ -159,10 +170,18 @@ const Login = (props) => {
               </FormGroup>
             </Col>
 
+            <FormGroup check>
+              <Label htmlFor="check" check>
+                <Input type="checkbox" name="check" id="check" /> Remember me
+              </Label>
+            </FormGroup>
+
+            <NavLink>Forgot username/password?</NavLink>
+
             <Button
               type="submit"
-              disabled={button}
-              onClick={submitForm}
+              // disabled={button}
+              // onClick={goStudentDashboard}
               className="buttonForm"
               style={{ backgroundColor: "#74CBC1" }}
             >

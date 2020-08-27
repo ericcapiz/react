@@ -17,23 +17,27 @@ function App() {
       <div>
         <Switch>
           <PrivateRoute path="/helper_dashboard" component={HelperDashboard} />
-          <PrivateRoute
+          {/* <PrivateRoute
             path="/student_dashboard"
             component={StudentDashboard}
-          />
+          /> */}
           <Route path="/register" component={Register} />
           <Route exact path="/helpertickets">
             <HelperTickets />
           </Route>
-          <PrivateRoute
+          {/* <PrivateRoute
             exact
             path="/student_dashboard"
             component={StudentDashboard}
-          />
+          /> */}
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/" />
-          <Route exact path="/newticketform" component={NewTicketForm} />
+          <Route exact path="/new_ticket_form" component={NewTicketForm} />
+          <Route exact path="/student_dashboard" component={StudentDashboard} />
+          <Route path="/student_dashboard/:id" >
+            <StudentDashboard />
+          </Route>
         </Switch>
       </div>
     </Router>
