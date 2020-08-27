@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Login from "./components/Login";
@@ -9,13 +9,14 @@ import PrivateRoute from "./components/utils/PrivateRoute";
 import StudentDashboard from "./components/students/StudentDashboard";
 import NewTicketForm from "./components/students/NewTicketForm";
 
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 
 function App() {
   return (
     <Router>
       <div>
         <Switch>
+          <Route exact path="/" component={Login} />
           <PrivateRoute path="/helper_dashboard" component={HelperDashboard} />
           {/* <PrivateRoute
             path="/student_dashboard"
@@ -32,10 +33,9 @@ function App() {
           /> */}
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/" />
           <Route exact path="/new_ticket_form" component={NewTicketForm} />
           <Route exact path="/student_dashboard" component={StudentDashboard} />
-          <Route path="/student_dashboard/:id" >
+          <Route path="/student_dashboard/:id">
             <StudentDashboard />
           </Route>
         </Switch>
@@ -44,13 +44,10 @@ function App() {
   );
 }
 
-const mapsStateToProps = state => {
+const mapsStateToProps = (state) => {
   return {
-    tickets: state.tickets
-  }
-}
+    tickets: state.tickets,
+  };
+};
 
-export default connect(
-  mapsStateToProps,
-  {}
-  ) (App);
+export default connect(mapsStateToProps, {})(App);

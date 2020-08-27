@@ -23,15 +23,12 @@ align-items: center;
 padding: 20px 0;
 
 h1{
-    background-color: rgba(228, 241, 254, 0.5);
+    background-color: rgba(228, 241, 254);
     display: flex;
     align-content: center;
     width: 100%;
     font-size: 30px;
     padding: 30px 200px;
-    &:hover{
-        border-bottom: 2px solid red;
-    }
 }
 `;
 

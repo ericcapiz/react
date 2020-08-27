@@ -2,6 +2,15 @@ import React,{useState, useEffect} from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
 import styled from 'styled-components';
+import HelperNav from './Helper/HelperNav';
+
+const FormDiv = styled.div `
+  display:flex;
+  justify-content:center;
+  align-items: center;
+  margin-top: 5%;
+
+`;
 
 const FormCont = styled.form`
     display: flex;
@@ -9,8 +18,6 @@ const FormCont = styled.form`
     align-items:center;
     justify-content: center;
     position: relative;
-    top: 80px;
-    left: 550px;
     border: 3px solid lightblue;
     width: 400px;
     padding: 50px;
@@ -35,15 +42,21 @@ const FormCont = styled.form`
         
     }
     button{
-        width: 200px;
-        padding: 8px 15px 8px 15px;
-        background: lightblue;
-        color: #fff;
-        border-radius: 3px;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
     
-    }
+      color:black;
+      border-radius:10px;
+      background-color: #0066cc;
+      justify-content: center;
+      height: 50px;
+      width: 200px;
+  
+      font-size:20px;
+      &:hover{
+          cursor: pointer;
+          background-color: blue;
+          color:white;
+      }
+  }
 `;
 
 const ErrorMsg = styled.p `
@@ -60,12 +73,8 @@ const Register =()=>{
         lname: "",
         number: "",
         email:"",
-        call: false,
-        text: false,
-        byemail: false,
         username:"",
         password: "",
-        repassword: "",
         helper:false,
         student:false,
       });
@@ -77,7 +86,6 @@ const Register =()=>{
         email:"",
         username:"",
         password: "",
-        repassword: "",
       })
 
       const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -91,9 +99,6 @@ const Register =()=>{
         lname: yup.string().required('Enter Your Last Name'),
         number: yup.string().matches(phoneRegex, "Invalid phone number").required("Enter A Valid Number"),
         email: yup.string().email("Must be a valid email").required("Must include an email"),
-        call: yup.boolean(),
-        text: yup.boolean(),
-        byemail: yup.boolean(),
         username:yup.string().required('Username is required'),
 
 
@@ -101,9 +106,6 @@ const Register =()=>{
         password:yup.string().required('Password is required').matches(
             /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
             "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"),
-        repassword:yup.string()
-        .oneOf([yup.ref('password'), null], "Passwords don't match!")
-        .required('Required'),
         helper: yup.boolean(),
         student: yup.boolean()
     });
@@ -156,12 +158,8 @@ const Register =()=>{
                 lname: "",
                 number: "",
                 email:"",
-                call: false,
-                text: false,
-                byemail: false,
                 username:"",
                 password: "",
-                repassword: "",
                 helper:false,
                 student:false,
               
@@ -176,6 +174,10 @@ const Register =()=>{
         });
       }, [newReg]);
     return(
+      <div>
+        <HelperNav />
+        
+        <FormDiv>
         <FormCont onSubmit={formSubmit}>
             <label htmlFor="fname">
                 First Name:
@@ -195,22 +197,12 @@ const Register =()=>{
           onChange={inputChange}/>
           {errors.number.length > 0 ? <ErrorMsg>{errors.number}</ErrorMsg> : null}
             </label>
+
             <label htmlFor="email">
-                Email:
+                Email Address:
                 <input type="text" id="email" data-cy="email" name="email" placeholder="Email" value={newReg.email}
           onChange={inputChange}/>
           {errors.email.length > 0 ? <ErrorMsg>{errors.email}</ErrorMsg> : null}
-            </label>
-            <label htmlFor="contactmethod">
-               Preferred Contact Method: <br></br>
-                <input type="checkbox" id="call" data-cy="call" name="call" value={newReg.call}
-          onChange={inputChange}/><span> By Phone</span>
-                
-                <input type="checkbox" id="text" data-cy="text" name="text" value={newReg.text}
-          onChange={inputChange}/><span> Text</span>
-                
-                <input type="checkbox" id="byemail" data-cy="byemail" name="byemail" value={newReg.byemail}
-          onChange={inputChange}/><span> Email</span>
             </label>
 
             <label htmlFor="username">
@@ -227,22 +219,17 @@ const Register =()=>{
           {errors.password.length > 0 ? <ErrorMsg>{errors.password}</ErrorMsg> : null}
                 </label>
 
-                <label htmlFor="repassword">
-                Confirm Password:
-                <input type="text" id="repassword" data-cy="repassword" name="repassword" placeholder="Confirm Password" value={newReg.repassword}
-          onChange={inputChange}/>
-          {errors.repassword.length > 0 ? <ErrorMsg>{errors.repassword}</ErrorMsg> : null}
-            </label>
-
             <label htmlFor="role">
-               Role:
-                <input type="checkbox" id="helper" data-cy="helper" name="helper" value={newReg.helper}
-          onChange={inputChange}/><span> Helper</span>
-                <input type="checkbox" id="student" data-cy="student" name="student" value={newReg.student}
+               Primary Role: 
+               <span> <input type="checkbox" id="helper" data-cy="helper" name="helper" value={newReg.helper}
+          onChange={inputChange}/> Helper</span>
+               <span></span> <input type="checkbox" id="student" data-cy="student" name="student" value={newReg.student}
           onChange={inputChange}/><span> Student</span>
             </label>
             <button data-cy="submit" type="submit" disabled={buttonDisabled}>Register</button>
         </FormCont>
+        </FormDiv>
+        </div>
     )
 }
 export default Register;

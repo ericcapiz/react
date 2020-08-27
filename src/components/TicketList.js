@@ -1,45 +1,40 @@
-import React, { useState, useEffect } from "react";
-import dummyData from "./students/dummyData";
-import Ticket from "../components/students/Ticket";
-import { axiosAuth } from "./utils/axiosAuth";
-import { useParams } from "react-router-dom";
-import { Spinner } from 'reactstrap';
+import React, { useEffect } /*{ useState, useEffect }*/ from "react";
+//import dummyData from "./students/dummyData";
+import Ticket from "./students/Ticket";
+//import { axiosAuth } from "./utils/axiosAuth";
+//import { useParams } from "react-router-dom";
+import { connect } from 'react-redux';
+import { getTicketData } from './actions/actions'
 
-const TicketList = () => {
-
-  const [tickets, setTickets] = useState();
-
-  const params = useParams();
+const TicketList = props => {
+  console.log('ticket', props)
 
   useEffect(() => {
-
-    const id = params.id;
-    console.log('This is my params', params)
-
-    axiosAuth()
-    .get(`/api/tickets/`)
-    .then(response => {
-          console.log(response.data);
-          setTickets(response.data);
-   
-        })
-        .catch(error => {
-          console.error(error);
-        });
-
-  },[params.id]);
-
-
-  if (!tickets) return <Spinner color="info"/>;
-
+    props.getTicketData()
+    console.log(props.tickets)
+  }, [])
 
   return (
-    <div>
-      {tickets.map((ticket) => {
-        return <Ticket key={ticket.ticket_id} ticket={ticket} />;
+    
+    <>
+      {props.tickets.map(ticket => {
+        return <Ticket key={ticket.ticket_id} tickets={ticket} />
+
       })}
-    </div>
+    </>
   );
 };
 
-export default TicketList;
+const mapStateToProps = state => {
+  return {    
+    tickets: state.tickets,
+    user: state.user,
+    isFetching: state.isFetching,
+    error: state.error
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  {getTicketData}
+  )(TicketList)

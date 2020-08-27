@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from "axios";
-import {Motion, spring} from 'react-motion';
-import { axiosAuth } from "./utils/axiosAuth";
+import { Motion, spring } from "react-motion";
 import {
   Button,
   Form,
@@ -12,10 +11,9 @@ import {
   NavLink,
   Container,
   Col,
-  FormFeedback,
   Spinner,
 } from "reactstrap";
-import { useHistory, Route } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./Login.css";
 import StudentNav from "./students/StudentNav";
 
@@ -49,23 +47,23 @@ const Login = (props) => {
   //Set the state for button
   const [button, setButton] = useState(true);
 
-  const [text, setText] = useState({open: false});
+  const [text, setText] = useState({ open: false });
 
   const handleMouseDown = () => {
-    setText({open: !text.open});
+    setText({ open: !text.open });
   };
-
 
   //Form schema for login
   const formSchema = yup.object().shape({
-    email: yup.string().email("Must contain @ and .com").required("Email is required"),
-    password: yup
+    email: yup
       .string()
-      .required("Password is required")
-      // .matches(
-      //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      //   "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one Special Case Character"
-      // ),
+      .email("Must contain @ and .com")
+      .required("Email is required"),
+    password: yup.string().required("Password is required"),
+    // .matches(
+    //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+    //   "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one Special Case Character"
+    // ),
   });
 
   //Form validation function for login
@@ -103,8 +101,8 @@ const Login = (props) => {
     console.log("Form submitted!");
     console.log(user);
 
-    axiosAuth()
-      .post("/api/auth/login", user) 
+    axios
+      .post("https://devdeskqueue3-pt.herokuapp.com/api/auth/login", user)
       .then((response) => {
         console.log("POST is successful!", response.data);
         window.localStorage.setItem("token", response.data.token);
@@ -113,7 +111,9 @@ const Login = (props) => {
         // setUser({ email: "", password: ""}); //Clear the form
       })
       .catch((err) => {
-        setServerError("You don't have an account with us yet. Please register!");
+        setServerError(
+          "You don't have an account with us yet. Please register!"
+        );
       });
   };
 
@@ -184,7 +184,9 @@ const Login = (props) => {
               </Label>
             </FormGroup>
 
-            <NavLink onMouseDown={handleMouseDown}>Forgot username/password?</NavLink>
+            <NavLink onMouseDown={handleMouseDown}>
+              Forgot username/password?
+            </NavLink>
 
             <Button
               type="submit"
@@ -206,18 +208,22 @@ const Login = (props) => {
           </NavLink>
         </div>
       </div>
-      <Motion style={{x: spring(text.open ? 100 : -1000)}}>
-          {({x}) =>
-            <div>
-              <p className="play" style={{
+      <Motion style={{ x: spring(text.open ? 100 : -1000) }}>
+        {({ x }) => (
+          <div>
+            <p
+              className="play"
+              style={{
                 WebkitTransform: `translate3d(${x}px, 0, 0)`,
                 transform: `translate3d(${x}px, 0, 0)`,
-              }}>email: alice@gmail.com password: hello</p>
-            </div>
-          }
-        </Motion>
-      </div>
-
+              }}
+            >
+              email: alice@gmail.com password: hello
+            </p>
+          </div>
+        )}
+      </Motion>
+    </div>
   );
 };
 

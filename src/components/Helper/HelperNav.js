@@ -22,7 +22,7 @@ a{
         color: #0066cc;
     }
 }
-h3{
+h4{
     position: absolute;
     left: 10px;
     padding: 10px
@@ -39,7 +39,7 @@ const HelperNav =()=>{
     return(
         
         <Nav>
-            <h3><span>Q</span>The Queue</h3>
+            <h4><span>Q</span>Dev Desk</h4>
             <a href="#">For Students</a>
             <a href="#">Features</a>
             <a href="#">Team</a>
