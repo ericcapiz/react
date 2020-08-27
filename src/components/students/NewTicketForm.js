@@ -4,8 +4,12 @@ import { connect } from "react-redux";
 import { addNewTicket } from "../actions/actions";
 import "./StudentDashboard.css";
 import StudentNav from "./StudentNav";
+import { useHistory } from "react-router-dom";
 
 const NewTicketForm = (props) => {
+
+    const history = useHistory();
+
   const [newTicket, setNewTicket] = useState({
     title: "",
     description: "",
@@ -13,10 +17,13 @@ const NewTicketForm = (props) => {
 
   });
 
+
+
   const submitNewTicket = (e) => {
     console.log("submitted!");
     e.preventDefault();
     props.addNewTicket(newTicket);
+    history.push("/student_dashboard");
   };
 
   const handleChanges = (e) => {
