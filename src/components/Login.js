@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from "axios";
+import {Motion, spring} from 'react-motion';
 import { axiosAuth } from "./utils/axiosAuth";
 import {
   Button,
@@ -47,6 +48,13 @@ const Login = (props) => {
 
   //Set the state for button
   const [button, setButton] = useState(true);
+
+  const [text, setText] = useState({open: false});
+
+  const handleMouseDown = () => {
+    setText({open: !text.open});
+  };
+
 
   //Form schema for login
   const formSchema = yup.object().shape({
@@ -176,7 +184,7 @@ const Login = (props) => {
               </Label>
             </FormGroup>
 
-            <NavLink>Forgot username/password?</NavLink>
+            <NavLink onMouseDown={handleMouseDown}>Forgot username/password?</NavLink>
 
             <Button
               type="submit"
@@ -198,7 +206,18 @@ const Login = (props) => {
           </NavLink>
         </div>
       </div>
-    </div>
+      <Motion style={{x: spring(text.open ? 100 : -1000)}}>
+          {({x}) =>
+            <div>
+              <p className="play" style={{
+                WebkitTransform: `translate3d(${x}px, 0, 0)`,
+                transform: `translate3d(${x}px, 0, 0)`,
+              }}>email: alice@gmail.com password: hello</p>
+            </div>
+          }
+        </Motion>
+      </div>
+
   );
 };
 

@@ -11,15 +11,17 @@ import {
 import "./StudentDashboard.css";
 
 const Ticket = ({ ticket }) => {
-  return (
+
+    // const categoryArray = ticket.categories;
+    // console.log(categoryArray)
+
+    return (
     <div>
       <Card className="card">
         <CardBody>
         <div className="categoryDiv">
           <CardSubtitle>Ticket #: {ticket.ticket_id}</CardSubtitle>
-          <CardSubtitle className="ticket">
-            {ticket.categories}
-          </CardSubtitle>
+        <CardSubtitle className="ticket">{ticket.categories}</CardSubtitle>
           </div>
           <CardTitle className="ticketTitle">Title: {ticket.title}</CardTitle>
           <CardText>Description: {ticket.description}</CardText>
