@@ -11,8 +11,12 @@ const MainDiv =styled.div `
 const SideDiv = styled.div `
 display: flex;
 flex-direction: column;
+align-items:center;
+justify-content:center;
 margin-top: 150px;
 align-items:center;
+// height: 80vh;
+width: 100vh;
 button{
     
     color:black;
@@ -31,7 +35,8 @@ button{
 `
 const SideDiv2 = styled.div `
 display: flex;
-height: 500px;
+justify-content:center;
+height: 80vh;
 width: 100vh;
 
 img{
