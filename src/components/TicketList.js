@@ -3,7 +3,6 @@ import React, { useEffect } /*{ useState, useEffect }*/ from "react";
 import Ticket from "./students/Ticket";
 //import { axiosAuth } from "./utils/axiosAuth";
 //import { useParams } from "react-router-dom";
-import { Spinner } from 'reactstrap';
 import { connect } from 'react-redux';
 import { getTicketData } from './actions/actions'
 
