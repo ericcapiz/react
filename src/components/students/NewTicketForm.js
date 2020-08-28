@@ -7,17 +7,13 @@ import StudentNav from "./StudentNav";
 import { useHistory } from "react-router-dom";
 
 const NewTicketForm = (props) => {
-
-    const history = useHistory();
+  const history = useHistory();
 
   const [newTicket, setNewTicket] = useState({
     title: "",
     description: "",
     what_ive_tried: "",
-
   });
-
-
 
   const submitNewTicket = (e) => {
     console.log("submitted!");
@@ -76,8 +72,14 @@ const NewTicketForm = (props) => {
 
         <FormGroup>
           <Label htmlFor="category" className="dropDownNewTicket">
-            <select id="category" name="category" type="text" value={newTicket.categories} onChange={handleChanges}>
-              <option>Pick a category</option>
+            <h4>Pick a category</h4>
+            <select
+              id="category"
+              name="category"
+              type="text"
+              value={newTicket.categories}
+              onChange={handleChanges}
+            >
               <option value="React">React</option>
               <option value="Back End">Back End</option>
               <option value="SASS">SASS</option>
@@ -86,7 +88,11 @@ const NewTicketForm = (props) => {
           </Label>
         </FormGroup>
 
-        <Button type="submit" onClick={submitNewTicket} style={{ backgroundColor: "#74CBC1" }}>
+        <Button
+          type="submit"
+          onClick={submitNewTicket}
+          style={{ backgroundColor: "#74CBC1" }}
+        >
           Submit Ticket
         </Button>
       </Form>
@@ -99,11 +105,8 @@ const mapsStateToProps = (state) => {
     tickets: state.tickets,
     user: state.user,
     isFetching: state.isFetching,
-    error: state.error
+    error: state.error,
   };
 };
 
-export default connect(
-  mapsStateToProps, 
-  { addNewTicket }
-  )(NewTicketForm);
+export default connect(mapsStateToProps, { addNewTicket })(NewTicketForm);

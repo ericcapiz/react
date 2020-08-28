@@ -1,17 +1,11 @@
-import React, { useEffect /*{ useState, useEffect }*/ } from "react";
-//import dummyData from "./students/dummyData";
+import React, { useEffect } from "react";
 import Ticket from "./students/Ticket";
-//import { axiosAuth } from "./utils/axiosAuth";
-//import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { getTicketData } from "./actions/actions";
 
 const TicketList = (props) => {
-  console.log("ticket", props);
-
   useEffect(() => {
     props.getTicketData();
-    console.log(props.tickets);
   }, []);
 
   return (

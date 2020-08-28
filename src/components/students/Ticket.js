@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardImg,
@@ -7,8 +7,11 @@ import {
   CardTitle,
   CardSubtitle,
   Button,
+  Label,
 } from "reactstrap";
 import "./StudentDashboard.css";
+import { initialState } from "../reducer/reducer";
+import { axiosAuth } from "../utils/axiosAuth";
 
 const Ticket = (props) => {
   useEffect(() => {
