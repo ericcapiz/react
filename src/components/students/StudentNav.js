@@ -10,13 +10,19 @@ const StudentNav = () => {
 
     const toggleNavbar = () => setCollapsed(!collapsed);
 
+    const search = () => {
+      return (
+        <Search />
+      )
+    }
+
     return(
 
         <div>
-        <Navbar color="faded" light>
-          <NavbarBrand href="/" className="mr-auto"  style={{ fontFamily: "Roboto Mono , serif", fontSize: "2rem", fontWeight: "bolder", color: "#74CBC1" }}>Dev Desk</NavbarBrand>
-
-          <i className="fa fa-search" style={{color: "#74CBC1"}}></i>
+        <Navbar color="faded" light className="mainNavDiv">
+          <NavbarBrand href="https://reachoutdevdesk.netlify.app/" className="mr-auto" classID="logo"  style={{ fontFamily: "Roboto Mono , serif", fontSize: "2rem", fontWeight: "bolder", color: "#74CBC1" }}>Dev Desk</NavbarBrand>
+          <div className="subNavDiv">
+          <i className="fa fa-search" style={{color: "#74CBC1", marginRight: "5%"}} ></i>
         <Search />
 
           <NavbarToggler onClick={toggleNavbar} className="mr-2" />
@@ -36,6 +42,7 @@ const StudentNav = () => {
               </NavItem>
             </Nav>
           </Collapse>
+          </div>
         </Navbar>
       </div>
     );

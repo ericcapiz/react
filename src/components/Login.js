@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from "axios";
+import { Motion, spring } from "react-motion";
 import {
   Button,
   Form,
@@ -46,16 +47,23 @@ const Login = (props) => {
   //Set the state for button
   const [button, setButton] = useState(true);
 
+  const [text, setText] = useState({ open: false });
+
+  const handleMouseDown = () => {
+    setText({ open: !text.open });
+  };
+
   //Form schema for login
   const formSchema = yup.object().shape({
-    username: yup.string().required("Email is required"),
-    password: yup
+    email: yup
       .string()
-      .required("Password is required")
-      // .matches(
-      //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      //   "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one Special Case Character"
-      // ),
+      .email("Must contain @ and .com")
+      .required("Email is required"),
+    password: yup.string().required("Password is required"),
+    // .matches(
+    //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+    //   "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one Special Case Character"
+    // ),
   });
 
   //Form validation function for login
@@ -83,7 +91,7 @@ const Login = (props) => {
     e.persist();
     // console.log("new input here!", e.target.value);
     // const newUser = { ...user, [e.target.name]: e.target.value };
-    // validateChange(e);
+    validateChange(e);
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
@@ -94,23 +102,25 @@ const Login = (props) => {
     console.log(user);
 
     axios
-      .post("https://devdeskqueue3-pt.herokuapp.com/api/auth/login", user) 
+      .post("https://devdeskqueue3-pt.herokuapp.com/api/auth/login", user)
       .then((response) => {
         console.log("POST is successful!", response.data);
         window.localStorage.setItem("token", response.data.token);
         props.history.push("/student_dashboard");
-        setServerError(null);
-        setUser({ email: "", password: ""}); //Clear the form
+        // setServerError(null);
+        // setUser({ email: "", password: ""}); //Clear the form
       })
       .catch((err) => {
-        setServerError("API POST request failed!");
+        setServerError(
+          "You don't have an account with us yet. Please register!"
+        );
       });
   };
 
   //If everything checks, then button is enabled
   useEffect(() => {
     formSchema.isValid(user).then((isValid) => {
-      // setButton(!isValid);
+      setButton(!isValid);
     });
   }, [user]);
 
@@ -133,9 +143,9 @@ const Login = (props) => {
             {/* Username Field */}
             <Col>
               <FormGroup className="username">
-                <Label htmlFor="email" xs={4}>
+                <Label htmlFor="email" xl={4} className="label">
                   <Input
-                    type="text"
+                    type="email"
                     name="email"
                     id="email"
                     placeholder="Email"
@@ -152,7 +162,7 @@ const Login = (props) => {
             {/* Password Field */}
             <Col>
               <FormGroup>
-                <Label htmlFor="password" xs={4}>
+                <Label htmlFor="password" xl={4} className="label">
                   <Input
                     type="password"
                     name="password"
@@ -174,11 +184,13 @@ const Login = (props) => {
               </Label>
             </FormGroup>
 
-            <NavLink>Forgot username/password?</NavLink>
+            <NavLink onMouseDown={handleMouseDown}>
+              Forgot username/password?
+            </NavLink>
 
             <Button
               type="submit"
-              // disabled={button}
+              disabled={button}
               // onClick={goStudentDashboard}
               className="buttonForm"
               style={{ backgroundColor: "#74CBC1" }}
@@ -196,6 +208,21 @@ const Login = (props) => {
           </NavLink>
         </div>
       </div>
+      <Motion style={{ x: spring(text.open ? 100 : -1000) }}>
+        {({ x }) => (
+          <div>
+            <p
+              className="play"
+              style={{
+                WebkitTransform: `translate3d(${x}px, 0, 0)`,
+                transform: `translate3d(${x}px, 0, 0)`,
+              }}
+            >
+              email: alice@gmail.com password: hello
+            </p>
+          </div>
+        )}
+      </Motion>
     </div>
   );
 };

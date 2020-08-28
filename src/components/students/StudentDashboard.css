@@ -39,19 +39,26 @@ Form {
 
 .card {
     text-align: justify;
-    width: 50%;
+    width: 95%;
     margin-left: 2.5%;
-    margin-right: 2.5%;
+    /* margin-right: 2.5%; */
+
 }
 
 .ticket {
     padding-top: 1.5%;
+    background-color: #74CBC1;
+    width: 40%;
+    text-align: center;
+   
+  
 }
 
 .ticketTitle {
     padding-top: 1.5%;
     font-size: 1.5rem;
     font-weight: bold;
+    
 }
 
 .newTicketForm {
@@ -73,3 +80,35 @@ Form {
 .newTicketSubmitButton {
     margin-top: 2.5%;
 }
+
+.subNavDiv {
+    display: flex;
+    align-items: center;
+
+}
+
+.categoryDiv {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (max-width: 600px) {
+
+    .subNavDiv {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mainNavDiv {
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .ticketButtons {
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+
