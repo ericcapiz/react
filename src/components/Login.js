@@ -106,6 +106,7 @@ const Login = (props) => {
       .then((response) => {
         console.log("POST is successful!", response.data);
         window.localStorage.setItem("token", response.data.token);
+        console.log(response.data);
         props.history.push("/student_dashboard");
         // setServerError(null);
         // setUser({ email: "", password: ""}); //Clear the form
