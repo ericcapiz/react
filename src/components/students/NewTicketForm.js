@@ -17,6 +17,7 @@ const NewTicketForm = (props) => {
     console.log("submitted!");
     e.preventDefault();
     props.addNewTicket(newTicket);
+    props.history.push("/student_dashboard");
   };
 
   const handleChanges = (e) => {
@@ -69,8 +70,8 @@ const NewTicketForm = (props) => {
 
         <FormGroup>
           <Label htmlFor="category" className="dropDownNewTicket">
+            <h4>Pick a category</h4>
             <select id="category" name="category" type="text" value={newTicket.categories} onChange={handleChanges}>
-              <option>Pick a category</option>
               <option value="React">React</option>
               <option value="Back End">Back End</option>
               <option value="SASS">SASS</option>

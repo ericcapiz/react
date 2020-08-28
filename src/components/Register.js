@@ -66,40 +66,35 @@ const ErrorMsg = styled.p `
 
 `;
 
-const Register =()=>{
+const Register = props =>{
 
     const [newReg, setNewReg] = useState({
-        fname: "",
-        lname: "",
-        number: "",
+        name: "",
         email:"",
-        username:"",
         password: "",
-        helper:false,
-        student:false,
+        roles: [""]
       });
 
       const [errors, setErrors]=useState({
-        fname: "",
-        lname: "",
-        number: "",
+        name: "",
         email:"",
-        username:"",
         password: "",
+        roles: [""]
       })
 
       const [buttonDisabled, setButtonDisabled] = useState(true);
 
-      const phoneRegex = RegExp(
-        /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
-      );
+      // const phoneRegex = RegExp(
+      //   /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+      // );
 
     const formSchema = yup.object().shape({
-        fname: yup.string().required('Enter Your First Name'),
-        lname: yup.string().required('Enter Your Last Name'),
-        number: yup.string().matches(phoneRegex, "Invalid phone number").required("Enter A Valid Number"),
+        //fname: yup.string().required('Enter Your First Name'),
+        //lname: yup.string().required('Enter Your Last Name'),
+        name: yup.string().required('Enter Your Name'),
+        //number: yup.string().matches(phoneRegex, "Invalid phone number").required("Enter A Valid Number"),
         email: yup.string().email("Must be a valid email").required("Must include an email"),
-        username:yup.string().required('Username is required'),
+        //username:yup.string().required('Username is required'),
 
 
         
@@ -148,24 +143,22 @@ const Register =()=>{
 
       const formSubmit = (e) => {
         e.preventDefault(); 
-      
+        console.log('posted')
         axios
-          .post("https://reqres.in/api/users", newReg)
-          .then((res) => {
-            
-            setNewReg({
-                fname: "",
-                lname: "",
-                number: "",
-                email:"",
-                username:"",
-                password: "",
-                helper:false,
-                student:false,
-              
-            });
+          .post("https://devdeskqueue3-pt.herokuapp.com/api/auth/register", {...newReg, roles: []})
+          .then((response) => {
+            console.log("POST is successful!", response.data);
+            window.localStorage.setItem("token", response.data.token);
+            if (newReg.helper === true) {
+              props.history.push("/helper_dashboard");
+              window.location.reload(0)
+            } else {
+              props.history.push("/student_dashboard");
+            }
           })
-          .catch((err) => {});
+          .catch(error => {
+            console.log(error)
+          });
       };
 
       useEffect(() => {
@@ -179,52 +172,48 @@ const Register =()=>{
         
         <FormDiv>
         <FormCont onSubmit={formSubmit}>
-            <label htmlFor="fname">
-                First Name:
-                <input type="text" id="fname" data-cy="fname" name="fname" placeholder="First Name" value={newReg.fname}
+            <label htmlFor="name">
+                Name:
+                <input type="text" id="name" data-cy="name" name="name" placeholder="Name" value={newReg.name}
           onChange={inputChange}/>
-          {errors.fname.length > 0 ? <ErrorMsg>{errors.fname}</ErrorMsg> : null}
-            </label>
-            <label htmlFor="lname">
-                Last Name:
-                <input type="text" id="lname" data-cy="lname" name="lname" placeholder="Last Name" value={newReg.lname}
-          onChange={inputChange}/>
-          {errors.lname.length > 0 ? <ErrorMsg>{errors.lname}</ErrorMsg> : null}
-            </label>
-            <label htmlFor="phone">
-                Contact Number:
-                <input type="text" id="number" data-cy="number" name="number" placeholder="Contact Number" value={newReg.number}
-          onChange={inputChange}/>
-          {errors.number.length > 0 ? <ErrorMsg>{errors.number}</ErrorMsg> : null}
+          {errors.name.length > 0 ? <ErrorMsg>{errors.name}</ErrorMsg> : null}
             </label>
 
             <label htmlFor="email">
-                Email Address:
+                Email:
                 <input type="text" id="email" data-cy="email" name="email" placeholder="Email" value={newReg.email}
           onChange={inputChange}/>
           {errors.email.length > 0 ? <ErrorMsg>{errors.email}</ErrorMsg> : null}
             </label>
 
-            <label htmlFor="username">
-                Create Username:
-                <input type="text" id="username" data-cy="username" name="username" placeholder="Username" value={newReg.username}
-          onChange={inputChange}/>
-          {errors.username.length > 0 ? <ErrorMsg>{errors.username}</ErrorMsg> : null}
-            </label>
-
             <label htmlFor="password">
-                Create Password:
+                Password:
                 <input type="text" id="password" data-cy="password" name="password" placeholder="Password" value={newReg.password}
           onChange={inputChange}/>
           {errors.password.length > 0 ? <ErrorMsg>{errors.password}</ErrorMsg> : null}
                 </label>
 
             <label htmlFor="role">
-               Primary Role: 
-               <span> <input type="checkbox" id="helper" data-cy="helper" name="helper" value={newReg.helper}
-          onChange={inputChange}/> Helper</span>
-               <span></span> <input type="checkbox" id="student" data-cy="student" name="student" value={newReg.student}
-          onChange={inputChange}/><span> Student</span>
+               Are you a Helper? 
+               <div> 
+                 <input 
+                  type="checkbox" 
+                  id="helper" 
+                  data-cy="helper" 
+                  name="helper" 
+                  value={newReg.helper}
+                  onChange={inputChange}
+                  />
+                </div>
+                {/* <div>
+                 <input 
+                  type="checkbox" 
+                  id="student" 
+                  data-cy="student" 
+                  name="student" 
+                  value={newReg.student}
+                  onChange={inputChange}
+                  />Student</div> */}
             </label>
             <button data-cy="submit" type="submit" disabled={buttonDisabled}>Register</button>
         </FormCont>
