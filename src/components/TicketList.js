@@ -14,7 +14,6 @@ const TicketList = (props) => {
     console.log(props.tickets);
   }, []);
 
-  if (!Array.isArray(props.tickets)) return <></>;
   return (
     <>
       {props.tickets.map((ticket) => {
