@@ -30,10 +30,21 @@ const Ticket = (props, { tickets, updateTickets, setNewTickets}) => {
     .then(res => {
       console.log(res.data)
       setNewTickets(true);
+      window.location.reload()
     })
     .catch(err =>
       console.log(err))
-  }
+  };
+
+  const deleteTicket = ticket => {
+    axiosAuth()
+    .delete(`/api/tickets/${ticketToEdit.id}`, ticket)
+    .then(res => {
+      console.log(res.data)
+      updateTickets(tickets.filter((ticket) => ticket.id !== ticketToEdit.id))
+    })
+
+  };
 
   useEffect(() => {
     console.log(props.tickets)
@@ -124,6 +135,10 @@ const Ticket = (props, { tickets, updateTickets, setNewTickets}) => {
         >Edit
       </Button>
       <Button
+        onClick={e => {
+          e.stopPropagation();
+          deleteTicket(tickets)
+        }}
         style={{
           marginRight: "10px",
           backgroundColor: "red",
